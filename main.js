@@ -189,7 +189,7 @@ $(() => {
 
       if (searchTerm === "") {
         getAndDisplayCards();
-        console.log(searchTerm); // Restore original display
+        console.log(searchTerm); // Restore original display <-
       } else {
         const filteredCards = cards.filter(card => card.name.toLowerCase().includes(searchTerm));
         displayFilteredCards(filteredCards);
