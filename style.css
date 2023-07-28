@@ -1,153 +1,8 @@
 /* Body */
-body{
+body {
     background-color: #003459;
     font-size: larger;
 }
-
-/*Contact us  */
-#contactUs{
-    color: white;
-}
-
-   
-
-/* About Us */
-.about-exp-images{
-    width: 100px;
-}
-.exp-title{
-    font-family: monospace;
-    color: wheat;
-    height: fit-content;
-    display: grid;
-    gap: 30px;
-}
-.my-exp-img{
-    width: 25px;
-}
-
-
-.about-exp{
-    display: flex;
-    justify-content: flex-end;
-    width: 630px;
-}
-
-.knowledge{
-    display: flex;
-}
-
-label{
-    display: flex;
-    justify-content: flex-start;
-
-}
-.graph-1{
-    border: 1px solid gray;
-    width: 250px;
-    height: 20px;
-    margin-top: 15px;
-    background-color: lightgray;
-    font-weight: bold;
-    display:table;
-    color: black;
-
-
-}
-.graph-2{
-    border: 1px solid gray;
-    width: 550px;
-    height: 20px;
-    margin-top: 15px;
-    background-color: lightgray;
-    font-weight: bold;
-    display: inline-table;
-    color: black;
-
-
-}
-.graph-3{
-    border: 1px solid gray;
-    width: 150px;
-    height: 20px;
-    margin-top: 15px;
-    background-color: lightgray;
-    font-weight: bold;
-    display:table;
-    color: black;
-
-
-}
-
-.about-me-title{
-    color: white;
-    display: flex;
-    
-}
-
-
-.column {
-    float: left;
-    width: 33.3%;
-    margin-bottom: 16px;
-    padding: 0 8px;
-    display: flex;
-  }
-  
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    margin: 8px;
-  }
-  
-  .about-section {
-    padding: 50px;
-    text-align: center;
-
-    background-repeat: round;
-    background-size:cover;
-    color: white;
-    
-  }
-  
-  .card-container {
-    padding: 0 16px;
-    width: 244px;
-  }
-  
-  .card-container::after, .row::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
-  
-  .title {
-    color: grey;
-  }
-  
-  .button-about {
-    border: none;
-    outline: 0;
-    display: inline-block;
-    padding: 8px;
-    color: white;
-    background-color: #000;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
-  }
-  
-  .button-about:hover {
-    background-color: #555;
-  }
-  
-  @media screen and (max-width: 650px) {
-    .column {
-      width: 100%;
-      display: block;
-    }
-  }
-
-
 
 
 
@@ -157,8 +12,10 @@ label{
 /* ==================================================================== */
 /* Parallax */
 
+/* ->Ask yos if i have to.its sucks xD */
 
 /* =================================================================== */
+
 
 /* Key Frames  */
 @keyframes rotation {
@@ -181,7 +38,7 @@ label{
 .nav-item {
     display: inline-flex;
     flex-direction: row;
-    gap: 50px;
+    gap: 30px;
 }
 
 /* Individual links */
@@ -218,16 +75,20 @@ label{
 }
 
 /* ----------------------------------------------------------------
-/* Welcome page */
-/* Title */
-.title-live-class {
-    color: aliceblue;
-    display: flex;
-    justify-content: center;
-    padding-top: 58px;
-    gap: 20px;
+  /* Card section */
 
+.card-container {
+    padding: 0 16px;
+    width: 244px;
 }
+
+.card-container::after,
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
 
 
 /* Cards Container */
@@ -245,6 +106,8 @@ label{
     width: 300px;
     display: inline-block;
     background-color: rgb(199, 225, 241);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
 }
 
 /* Logo on card */
@@ -299,23 +162,30 @@ li {
     font-weight: bold;
 }
 
-/* Selected Live Graph Image --->> */
-
-#liveImg{
-    width: 1178px;
-    margin-left: 800px;
-    margin-top: 100px;
-}
-
-#liveGraphTitle{
-    display: flex;
-    justify-content: center;
-    color: white;
-}
-/* -------- */
-
 
 /* Modal */
-.modal-body{
+.modal-body {
     height: 300px;
+}
+
+
+/* COMING SOON SECTION  */
+.coming-soon {
+    min-inline-size: -webkit-fill-available;
+}
+
+
+/* About us -> */
+#about {
+    color: white;
+}
+
+/*  */
+
+/* Contact us -> */
+#contact{
+    color: white;
+}
+#contact-us-img{
+    mix-blend-mode: lighten;
 }

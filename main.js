@@ -271,105 +271,41 @@ $(() => {
   const contactUs = document.getElementById("contactUs");
 
   function displayContactUs() {
-  
+
     let html = `
-    !--Section: Contact v.2-->
-    section class="mb-4">
 
-        <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-        <!--Section description-->
-        <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
-            a matter of hours to help you.</p>
-
-    <div class="row">
-
-        <!--Grid column-->
-        <div class="col-md-9 mb-md-0 mb-5">
-            <form id="contact-form" name="contact-form" action="mail.php" method="POST">
-
-                <!--Grid row-->
-                <div class="row">
-
-                    <!--Grid column-->
-                    <div class="col-md-6">
-                        <div class="md-form mb-0">
-                            <input type="text" id="name" name="name" class="form-control">
-                            <label for="name" class="">Your name</label>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-md-6">
-                        <div class="md-form mb-0">
-                            <input type="text" id="email" name="email" class="form-control">
-                            <label for="email" class="">Your email</label>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-
-                </div>
-                <!--Grid row-->
-
-                <!--Grid row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="md-form mb-0">
-                            <input type="text" id="subject" name="subject" class="form-control">
-                            <label for="subject" class="">Subject</label>
-                        </div>
-                    </div>
-                </div>
-                <!--Grid row-->
-
-                <!--Grid row-->
-                <div class="row">
-
-                    <!--Grid column-->
-                    <div class="col-md-12">
-
-                        <div class="md-form">
-                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
-                            <label for="message">Your message</label>
-                        </div>
-
-                    </div>
-                </div>
-                <!--Grid row-->
-
-            </form>
-
-            <div class="text-center text-md-left">
-                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
+    <section id="contact" class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+        <img src="assets/images/contact.jpeg" alt="contact" class="img-fluid rounded-circle" id="contact-us-img">
+          <h2 class="text-center mb-4">Contact Us 📩</h2>
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name:</label>
+              <input type="text" class="form-control" id="name" required placeholder="Insert Your Name 📛">
             </div>
-            <div class="status"></div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email:</label>
+              <input type="email" class="form-control" id="email" required placeholder="Insert Your E-mail 📧">
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message:</label>
+              <textarea class="form-control" id="message" rows="4" required></textarea placeholder="Insert Your Message 📬">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
         </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-md-3 text-center">
-            <ul class="list-unstyled mb-0">
-                <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                    <p>San Francisco, CA 94126, USA</p>
-                </li>
-
-                <li><i class="fas fa-phone mt-4 fa-2x"></i>
-                    <p>+ 01 234 567 89</p>
-                </li>
-
-                <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                    <p>contact@mdbootstrap.com</p>
-                </li>
-            </ul>
-        </div>
-        <!--Grid column-->
-
+      </div>
     </div>
+  </section>
 
-</section>
-<!--Section: Contact v.2-->
-
+  <!-- Footer Section -->
+  <footer class="bg-dark text-white py-3">
+    <div class="container text-center">
+      <p>&copy; 2023 Crypto-4-U. All rights reserved.</p>
+    </div>
+  </footer>
 `
 
     contactUs.innerHTML = html;
@@ -390,55 +326,71 @@ $(() => {
   function displayAboutUs() {
 
     let html = `
-  <div class="about-section">
 
-  <h1 class="about-us-title">About me </h1>
-  <p>Just some things about me that you probably wanna know...</p>
-  <p>All the rights reserve to Uziel Cohen ©</p>
+    <!-- About Section -->
+    <section id="about" class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h2 class="display-4">About Me</h2>
+            <p class="lead">
+            Hey there , my name is Uziel cohen. I Am a developer.
+            <br>
+            Hope you having a great time 📍
+            </p>
+            <br>
+            <h3>My Knowledge : </h3>
+            <div class="knowledge-div>
+            <img src="assets/images/html.jpeg" alt="html" class="img-fluid rounded-circle" width ="20%">
+            <img src="assets/images/css.png" alt="css" class="img-fluid rounded-circle" width ="20%">
+            <img src="assets/images/js.png" alt="js" class="img-fluid rounded-circle" width ="20%">
+            <img src="assets/images/jq.png" alt="jquerry" class="img-fluid rounded-circle" width ="20%">
+            
+            </div>
+            <br>
+            <div class="container mt-5">
+            <h2 class="mb-4">My Information</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <h4>Birthday:</h4>
+                <p>April 18, 1998</p>
+        
+                <h4>School Education:</h4>
+                <p>"Irony-Tet" High School</p>
+                <img src="assets/images/ironyTet.png" alt="john-bryce" class="img-fluid rounded-circle" width ="10%">
+                <br>
 
+                <h4>Academic Education:</h4>
+                <p>John-Bryce Academic </p>
+                <img src="assets/images/jblogo.png" alt="irony-tet" class="img-fluid rounded-circle" width ="10%">
+                <br>
 
-<h2 class="about-me-title">⬇ Check My Card ⬇</h2>
-<div class="row">
-  <div class="column">
-    <div class="card">
-      <img src="assets/images/me.jpg" alt="Jane" style="width:100%">
-      <div class="card-container">
-        <h2>Uziel Cohen</h2>
-        <p class="title">Full Stack Web Developer</p>
-        <p>I am developer since 2023,feel free to contact me.</p>
-        <p>Uzielcohen2@gmail.com</p>
-        <p><button class="button-about">Contact</button></p>
+              </div>
+              <div class="col-md-6">
+                <h4>Military Service:</h4>
+                <p>I served in the military from 2016 to 2019. During my service, I gained valuable skills and experiences.</p>
+                <img src="assets/images/gloani.png" alt="golani" class="img-fluid rounded-circle" width ="10%">
+                <br>
+
+                <h4>Previous Jobs:</h4>
+                <p>After i've done my military service,I opened a little delivery company on my own while i managed a store with few workers.
+                <br>
+                Few years later i left the country to work in California as a sales man for few months,Came back to israel and started to study fullstack web development in John bryce Academic.
+                  </p>
+
+              </div>
+            </div>
+          </div>
+
+          </div>
+          <div class="col-lg-6">
+            <img src="assets/images/me.jpg" alt="Uziel" class="img-fluid rounded-circle">
+          </div>
+        </div>
       </div>
-    </div>
-    <br></br>
-
-    <div class="details-about">
-    <label>Academic Education</label>
-    <div class="graph-1">50%</div>
-    <br>
-    <label>School Education</label>
-    <div class="graph-2">100%</div>
-    <br></br>
-    <label>Academic Experience</label>
-    <div class="graph-3">20%</div>
-    
-  </div>
+    </section>
   
   
-  </div>
-
-  <div class="about-exp">
-  <h1 class="exp-title">My Knowledge 🧠
-  <img src="assets/images/css.png" class="about-exp-images" alt="">
-  <img src="assets/images/html.jpeg" class="about-exp-images" alt="">
-  <img src="assets/images/jq.png" class="about-exp-images" alt="">
-  <img src="assets/images/js.png" class="about-exp-images" alt="">
-</h1>
-  </div>
-
-  <div class="social-media">
-  <h1>Social Media</h1>
-  </div>
 
   `
 
@@ -454,18 +406,19 @@ $(() => {
   // ==========================================================================================================================
 
 
-// Live graph page ---- > 
+  // Live graph page ---- > 
 
-// Get container ->
+  // Get container ->
 
   const selectedGraph = document.getElementById("selectedGraph");
 
   function displayLiveSelected() {
- 
+
     let html = `
-    <h1 id="liveGraphTitle">Coming soon...</h1>
-  
-    <img src="assets/images/under-construction.jpeg" alt="" id="liveImg">
+
+    <img src ="assets/images/under-construction.jpeg" class="coming-soon">
+   
+    <h5>Thank you for your patient</h5>
  
   
     `
@@ -486,7 +439,7 @@ $(() => {
 
 
 
-// End Of the code.
+  // End Of the code.
 });
 
 
