@@ -1,0 +1,321 @@
+/* Body */
+body{
+    background-color: #003459;
+    font-size: larger;
+}
+
+/*Contact us  */
+#contactUs{
+    color: white;
+}
+
+   
+
+/* About Us */
+.about-exp-images{
+    width: 100px;
+}
+.exp-title{
+    font-family: monospace;
+    color: wheat;
+    height: fit-content;
+    display: grid;
+    gap: 30px;
+}
+.my-exp-img{
+    width: 25px;
+}
+
+
+.about-exp{
+    display: flex;
+    justify-content: flex-end;
+    width: 630px;
+}
+
+.knowledge{
+    display: flex;
+}
+
+label{
+    display: flex;
+    justify-content: flex-start;
+
+}
+.graph-1{
+    border: 1px solid gray;
+    width: 250px;
+    height: 20px;
+    margin-top: 15px;
+    background-color: lightgray;
+    font-weight: bold;
+    display:table;
+    color: black;
+
+
+}
+.graph-2{
+    border: 1px solid gray;
+    width: 550px;
+    height: 20px;
+    margin-top: 15px;
+    background-color: lightgray;
+    font-weight: bold;
+    display: inline-table;
+    color: black;
+
+
+}
+.graph-3{
+    border: 1px solid gray;
+    width: 150px;
+    height: 20px;
+    margin-top: 15px;
+    background-color: lightgray;
+    font-weight: bold;
+    display:table;
+    color: black;
+
+
+}
+
+.about-me-title{
+    color: white;
+    display: flex;
+    
+}
+
+
+.column {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+    display: flex;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+  }
+  
+  .about-section {
+    padding: 50px;
+    text-align: center;
+
+    background-repeat: round;
+    background-size:cover;
+    color: white;
+    
+  }
+  
+  .card-container {
+    padding: 0 16px;
+    width: 244px;
+  }
+  
+  .card-container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .title {
+    color: grey;
+  }
+  
+  .button-about {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .button-about:hover {
+    background-color: #555;
+  }
+  
+  @media screen and (max-width: 650px) {
+    .column {
+      width: 100%;
+      display: block;
+    }
+  }
+
+
+
+
+
+
+
+
+/* ==================================================================== */
+/* Parallax */
+
+
+/* =================================================================== */
+
+/* Key Frames  */
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+/* =================================================================== */
+
+
+
+/*------------------------ Navbar - Section ------------------------- */
+
+/* Whole Links */
+.nav-item {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+/* Individual links */
+.nav-link {
+    color: white;
+    margin-left: 50px;
+    font-size: x-large;
+}
+
+/* Hover links */
+.nav-link:hover {
+    color: lightskyblue;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.logo-brand {
+    width: 50px;
+    animation: rotation 2s infinite linear;
+}
+
+
+/* Search bar -  */
+
+/* h5 Question */
+.specific-coin {
+    color: lightskyblue;
+    font-family: system-ui;
+}
+
+
+.btn-outline-success {
+    color: lightskyblue;
+    border: 0.5px solid lightskyblue;
+}
+
+/* ----------------------------------------------------------------
+/* Welcome page */
+/* Title */
+.title-live-class {
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    padding-top: 58px;
+    gap: 20px;
+
+}
+
+
+/* Cards Container */
+#displayContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 20px;
+    gap: 10px;
+    align-items: baseline;
+}
+
+/* Individual Card */
+.card {
+    width: 300px;
+    display: inline-block;
+    background-color: rgb(199, 225, 241);
+}
+
+/* Logo on card */
+.card-coin-logo {
+    width: 50px;
+    margin-top: 10px;
+    margin-left: 20px;
+
+}
+
+/* Switcher */
+.form-check {
+    display: flex;
+    justify-content: flex-end;
+}
+
+div.form-check.form-switch {
+    margin-right: 20px;
+    font-size: x-large;
+
+}
+
+/* Card Title and logo */
+.card-title {
+    font-family: cursive;
+    font-size: large;
+    margin-left: 40px;
+
+}
+
+.logo-title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+
+/* Card Button */
+.moreInfoBtn {
+    background-color: #6195e9;
+    padding: .75rem 1.25rem;
+    border-radius: 10rem;
+    color: black;
+    font-size: 1rem;
+    font-family: monospace, Helvetica, sans-serif;
+    inline-size: -webkit-fill-available;
+}
+
+/* Card More info Container */
+li {
+    font-weight: bold;
+}
+
+/* Selected Live Graph Image --->> */
+
+#liveImg{
+    width: 1178px;
+    margin-left: 800px;
+    margin-top: 100px;
+}
+
+#liveGraphTitle{
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+/* -------- */
+
+
+/* Modal */
+.modal-body{
+    height: 300px;
+}

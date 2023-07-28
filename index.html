@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.7.0.js"></script>
+    <script defer src="main.js"></script>
+
+    <title>Crypto4u</title>
+
+</head>
+
+<body>
+
+
+
+
+    <!-- Nav-Bar Section  -->
+    <nav class="navbar bg-dark border-bottom border-bottom-dark">
+        <div class="container-fluid">
+            <img src="assets/images/usd-coin-usdc-logo.png" class="logo-brand" alt="my-logo">
+
+
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item">
+
+                    <a class="nav-link" aria-current="page" id="liveReportsLink" href="javascript:void(0)">Live
+                        Reports</a>
+                    <a class="nav-link" aria-current="page" id="contactUsLink" href="javascript:void(0)">Contact us
+                    </a>
+                    <a class="nav-link" aria-current="page" id="aboutUsLink" href="javascript:void(0)">About us
+                    </a>
+                    <a class="nav-link" aria-current="page" id="selectedGraphLink" href="javascript:void(0)">Selected
+                        live graph
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Search -->
+            <form class="d-flex" role="search" id="search-item">
+                <h5 class="specific-coin">Looking for specific coin? </h5>
+                <input class="form-control me-2" id="inputSearchBar" type="search" placeholder="Search Coin Here ! "
+                    aria-label="Search">
+                <button class="btn btn-outline-success" id="searchButton" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <!-- Whole pages Section-->
+    <div id="pagesSection">
+
+        <!-- Cards from js section -->
+
+        <div id="displayContainer">
+
+
+        </div>
+
+        <!-- Contact -->
+        <div id="contactUs"></div>
+        <!-- About -->
+        <div id="aboutUs"></div>
+        <!-- Selected Graph -->
+        <div id="selectedGraph"></div>
+
+        <!-- Modal Section -->
+
+        <div class="modal fade bd-example-modal-lg" id="coinModal" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <h2> You can choose only 5 coins.</h2>
+                    <br>
+                    <h5>Please remove one of your previous coins.</h5>
+                    <hr>
+                    <div class="modal-body" id="firstCard">
+                        <!-- Modal selected cards  -->
+
+                        <!-- <div id="firstCard"> -->
+
+                        <!-- </div> -->
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+
+</html>
