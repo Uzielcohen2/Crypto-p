@@ -451,12 +451,13 @@ $(() => {
   }
 
 
-  // =============================================================================================================
+  // =========================================================================================================================
 
 
-// Live graph page -- > 
+// Live graph page ---- > 
 
-// Get container
+// Get container ->
+
   const selectedGraph = document.getElementById("selectedGraph");
 
   function displayLiveSelected() {
