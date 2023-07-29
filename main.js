@@ -201,7 +201,8 @@ $(() => {
     // ----------------------------------------------------- Modal  Section ! ----------------------------------------------------
 
     const modal = new bootstrap.Modal(`#coinModal`);
-    const modalArr = [];
+    let modalArr = [];
+
 
     $("#displayContainer").on("click", ".form-check-input", function () {
       const cardId = $(this).closest(".card").find(".moreInfoBtn").attr("id");
@@ -215,35 +216,69 @@ $(() => {
       console.log(modalArr);
 
       if (modalArr.length === 6) {
-        modal.show();
+        showModal();
+      
+
+      }
+      
+      $(".modal-body").on("click","#flexSwitch",function(){
+        // Need to splice after ill catch the id of the toggled button inside the modal  (instead of clear modalArr)
+        modalArr = [];
+        console.log(modalArr);
+        $("#flexSwitchCheckDefault").prop("checked", false);
+        modal.hide()
+
+        });
+
+
+
+    
+      
+
+// Show modal function.
+     function showModal() {
+        const selectedCardsData = [];
+
+
+        for (const id of modalArr) {
+          const cardData = cards.find(card => card.id === id);
+          if(cardData){
+            selectedCardsData.push(cardData)
+          }
+         
+        }
+
+        console.log(selectedCardsData);
+
+        let modalHtml = "";
+        for (const data of selectedCardsData) {
+          modalHtml += `
+          <div class="card">
+          <h5 class="card-header">${data.symbol}</h5>
+          <div class="logo-title">
+            <!-- logo -->
+            <img src="${data.image}" class="modal-logo" alt="my-logo" width="20%">
+            <br></br>
+            <h5 class="card-title">${data.name}</h5>
+          </div>
+          <!-- Switch box -->
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitch">
+          </div>
+        </div>
+          
+          `
+        }
+
+
+
+        // Insert inside htm;
+        $(".modal-body").html(modalHtml);
+        $("#selectedGraphLink").attr("data-bs-toggle", "modal").attr("data-bs-target", "#coinModal");
+        modal.show()
       }
 
     })
-    // Get Modal Cards into html -->
-
-    const firstCard = document.getElementById("firstCard");
-    let modalHtml = "";
-    for (let i = 0; i < modalArr.length; i++) {
-      const cardData = modalArr[i];
-      modalHtml += `
-      <div class="card">
-            <h5 class="card-header">${cardData.symbol}</h5>
-        <div class="logo-title">
-           <!-- logo -->
-           <img src="${cardData[i].image}" class="card-coin-logo" alt="">
-           <h5 class="card-title">${cardData[i].name}</h5>
-      </div>
-          <!-- Switch box -->
-       <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-      </div>
-      </div>
-
-`
-    }
-    firstCard.innerHTML = modalHtml /// -- Fucking not workingggggg
-
-
 
     // Display - Filtered Container Function 
 

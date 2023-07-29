@@ -165,7 +165,7 @@ li {
 
 /* Modal */
 .modal-body {
-    height: 300px;
+    height: fit-content;
 }
 
 
