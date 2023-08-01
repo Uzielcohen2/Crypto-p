@@ -3,7 +3,10 @@ $(() => {
 
   // More Info ARRAY - > 
   const moreInfoArr = [];
+  
+  //Cards array - > 
   let cards = [];
+  
   // *-*-*-*-*-*-*-*-*-*-
 
   // Session storage function() ->
@@ -150,7 +153,11 @@ $(() => {
     selectedGraph.innerHTML = "";
 
 
+
     // More Info Button -->
+
+    //  -->> need to load from session ? 
+
     $(".moreInfoBtn").on("click", async function () {
       const json = await getSecondApi(this.id);
 
@@ -162,6 +169,7 @@ $(() => {
         const container = $(this).closest(".dataContainer");
 
         const cardBodyInfo = container.find(".card-body-info");
+        
 
 
         cardBodyInfo.html(`
@@ -188,6 +196,9 @@ $(() => {
 
   // ----------------------------------------------------- Modal  Section ! ----------------------------------------------------
 
+
+  // Not working well yet
+
   const modal = new bootstrap.Modal(`#coinModal`);
   let modalArr = [];
 
@@ -211,25 +222,25 @@ $(() => {
     }
   });
 
-    // Show modal function -- > 
+  // Show modal function -- > 
 
-    function showModal() {
-      const selectedCardsData = [];
+  function showModal() {
+    const selectedCardsData = [];
 
 
-      for (const id of modalArr) {
-        const cardData = cards.find(card => card.id === id);
-        if (cardData) {
-          selectedCardsData.push(cardData)
-        }
-
+    for (const id of modalArr) {
+      const cardData = cards.find(card => card.id === id);
+      if (cardData) {
+        selectedCardsData.push(cardData)
       }
-    
+
+    }
 
 
-      let modalHtml = "";
-      for (const data of selectedCardsData) {
-        modalHtml += `
+
+    let modalHtml = "";
+    for (const data of selectedCardsData) {
+      modalHtml += `
           <div class="card">
           <h5 class="card-header">${data.symbol}</h5>
           <div class="logo-title">
@@ -245,48 +256,48 @@ $(() => {
         </div>
           
           `
-      }
-
-
-
-      // Insert inside html ->
-      $(".modal-body").html(modalHtml);
-
-      modal.show()
-
-
-      // Click event listener to modal toggle button. -->
-
-      $(".modal-body .form-check-input-modal").on("click", function () {
-
-        const modalCardId = this.id.replace("_modalSwitch", "");
-        console.log("modal card is : " + modalCardId);
-
-        const modalIndex = modalArr.indexOf(modalCardId);
-
-        if (modalIndex !== -1) {
-
-          modalArr.splice(modalIndex, 1);
-          $("#displayContainer").find(`#${modalCardId}`).prop("checked", false);
-        }
-        else {
-          modalArr.push(modalCardId);
-          $("#displayContainer").find(`#${modalCardId}`).prop("checked", true);
-
-        }
-        console.log(`Updated modal Arr = ${modalArr}`);
-
-
-        modal.hide()
-
-      });
-
-      // End of modal function
     }
 
 
 
+    // Insert inside html ->
+    $(".modal-body").html(modalHtml);
 
+    modal.show()
+
+
+    // Click event listener to modal toggle button. -->
+
+    $(".modal-body .form-check-input-modal").on("click", function () {
+
+      const modalCardId = this.id.replace("_modalSwitch", "");
+      console.log("modal card is : " + modalCardId);
+
+      const modalIndex = modalArr.indexOf(modalCardId);
+
+      if (modalIndex !== -1) {
+
+        modalArr.splice(modalIndex, 1);
+        $("#displayContainer").find(`#${modalCardId}`).prop("checked", false);
+      }
+      else {
+        modalArr.push(modalCardId);
+        $("#displayContainer").find(`#${modalCardId}`).prop("checked", true);
+
+      }
+      console.log(`Updated modal Arr = ${modalArr}`);
+
+
+      modal.hide()
+
+    });
+
+    // End of modal function
+  }
+
+
+
+// ----------------------------------------------------------------------------------------------
 
 
 
@@ -295,9 +306,11 @@ $(() => {
 
 
   // ----------------------------------------------------- Search Bar Section ! ----------------------------------------------------
- 
- 
+
+
   // Display - Filtered Container Function 
+
+  // Only name or id + name ? 
 
 
   function displayFilteredCards(filteredCards) {
@@ -352,7 +365,7 @@ $(() => {
     contactUs.innerHTML = "";
     selectedGraph.innerHTML = "";
 
-// Display Filtered Cards function end -->
+    // Display Filtered Cards function end -->
   }
 
   // Get input searchbar
@@ -467,23 +480,26 @@ $(() => {
             <div class="row">
               <div class="col-md-6">
                 <h4>Birthday:</h4>
-                <p>April 18, 1998</p>
+                <p>April 18, 1998 🎈</p> 
+               
+                <h4>Address:</h4>
+                <p>Bachar Zaav,Tel haim,Tel-Aviv 🏡 </p>
         
                 <h4>School Education:</h4>
-                <p>"Irony-Tet" High School</p>
-                <img src="assets/images/ironyTet.png" alt="john-bryce" class="img-fluid rounded-circle" width ="10%">
-                <br>
+                <p>"Irony-Tet" High School.</p>
+                <img src="assets/images/ironyTet.png" alt="john-bryce" class="img-fluid rounded-circle" width ="20%">
+                <br></br>
 
                 <h4>Academic Education:</h4>
                 <p>John-Bryce Academic </p>
-                <img src="assets/images/jblogo.png" alt="irony-tet" class="img-fluid rounded-circle" width ="10%">
-                <br>
+                <img src="assets/images/jblogo.png" alt="irony-tet" class="img-fluid rounded-circle" width ="20%">
+                <br></br>
 
               </div>
               <div class="col-md-6">
                 <h4>Military Service:</h4>
                 <p>I served in the military from 2016 to 2019. During my service, I gained valuable skills and experiences.</p>
-                <img src="assets/images/gloani.png" alt="golani" class="img-fluid rounded-circle" width ="10%">
+                <img src="assets/images/gloani.png" alt="golani" class="img-fluid rounded-circle" width ="20%">
                 <br>
 
                 <h4>Previous Jobs:</h4>
