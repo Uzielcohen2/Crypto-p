@@ -3,6 +3,7 @@ $(() => {
 
   // More Info ARRAY - > 
   const moreInfoArr = [];
+  let cards = [];
   // *-*-*-*-*-*-*-*-*-*-
 
   // Session storage function() ->
@@ -83,7 +84,7 @@ $(() => {
 
   // Get and display cards function -->
   async function getAndDisplayCards() {
-    const cards = await getApi("api.json");
+    cards = await getApi("api.json");
     displayCards(cards)
   }
   // ----------------------------------
@@ -180,90 +181,55 @@ $(() => {
 
     // ---------------------------------------------------------------------------
 
-    // ----------------------------------------------------- Search Bar Section ! ----------------------------------------------------
-
-    const inputSearchBar = document.getElementById("inputSearchBar");
-
-    inputSearchBar.addEventListener("keyup", function () {
-      const searchTerm = inputSearchBar.value.toLowerCase();
-
-      if (searchTerm === "") {
-        getAndDisplayCards();
-        console.log(searchTerm); // Restore original display <-
-      } else {
-        const filteredCards = cards.filter(card => card.name.toLowerCase().includes(searchTerm));
-        displayFilteredCards(filteredCards);
-        console.log(filteredCards);
-
-      }
-    });
-
-    // ----------------------------------------------------- Modal  Section ! ----------------------------------------------------
-
-    const modal = new bootstrap.Modal(`#coinModal`);
-    let modalArr = [];
-
-
-    $("#displayContainer").on("click", ".form-check-input", function () {
-      const cardId = $(this).closest(".card").find(".moreInfoBtn").attr("id");
-      console.log(`card id :${cardId} `);
-
-      const index = modalArr.indexOf(cardId);
-      if (index !== -1) {
-        modalArr.splice(index, 1);
-        $(`#${cardId}_modalSwitch`).prop("checked", false);
-      } else {
-        modalArr.push(cardId);
-        $(`#${cardId}_modalSwitch`).prop("checked", true);
-      }
-      console.log("Modal arr = " + modalArr);
-
-      if (modalArr.length >= 4) {
-        showModal();
+    // End of Display cards Function 
+  }
 
 
 
-      }
+  // ----------------------------------------------------- Modal  Section ! ----------------------------------------------------
 
-      // $(".modal-body").on("click", "#flexSwitch", function () {
-
-      //   const modalCardId = $(this).closest(".card").find(".form-check-input").attr("id");
-
-      //   const modalIndex = modalArr.indexOf(modalCardId);
-
-      //   if (modalIndex !== -1) {
-      //     modalArr.splice(modalIndex, 1);
-      //     $("#displayContainer").find(`#${modalCardId}`).prop("checked", false);
-      //   }
-      //   console.log(modalArr);
-
-      //   $("#flexSwitchCheckDefault").prop("checked", false);
-      //   modal.hide()
-
-      // });
+  const modal = new bootstrap.Modal(`#coinModal`);
+  let modalArr = [];
 
 
+  $("#displayContainer").on("click", ".form-check-input", function () {
+    const cardId = $(this).closest(".card").find(".moreInfoBtn").attr("id");
+    console.log(`card id :${cardId} `);
+
+    const index = modalArr.indexOf(cardId);
+    if (index !== -1) {
+      modalArr.splice(index, 1);
+      $(`#${cardId}_modalSwitch`).prop("checked", false);
+    } else {
+      modalArr.push(cardId);
+      $(`#${cardId}_modalSwitch`).prop("checked", true);
+    }
+    console.log("Modal arr = " + modalArr);
+
+    if (modalArr.length >= 4) {
+      showModal();
+    }
+  });
+
+    // Show modal function -- > 
+
+    function showModal() {
+      const selectedCardsData = [];
 
 
-
-
-      // Show modal function.
-      function showModal() {
-        const selectedCardsData = [];
-
-
-        for (const id of modalArr) {
-          const cardData = cards.find(card => card.id === id);
-          if (cardData) {
-            selectedCardsData.push(cardData)
-          }
-
+      for (const id of modalArr) {
+        const cardData = cards.find(card => card.id === id);
+        if (cardData) {
+          selectedCardsData.push(cardData)
         }
 
+      }
+    
 
-        let modalHtml = "";
-        for (const data of selectedCardsData) {
-          modalHtml += `
+
+      let modalHtml = "";
+      for (const data of selectedCardsData) {
+        modalHtml += `
           <div class="card">
           <h5 class="card-header">${data.symbol}</h5>
           <div class="logo-title">
@@ -274,24 +240,24 @@ $(() => {
           </div>
           <!-- Switch box -->
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="${data.id}_modalSwitch">
+            <input class="form-check-input-modal" type="checkbox" role="switch" id="${data.id}_modalSwitch">
           </div>
         </div>
           
           `
-        }
-
-
-
-        // Insert inside htm;
-        $(".modal-body").html(modalHtml);
-        $("#selectedGraphLink").attr("data-bs-toggle", "modal").attr("data-bs-target", "#coinModal");
-        modal.show()
       }
+
+
+
+      // Insert inside html ->
+      $(".modal-body").html(modalHtml);
+
+      modal.show()
+
 
       // Click event listener to modal toggle button. -->
 
-      $(".modal-body .form-check-input").on("click", function () {
+      $(".modal-body .form-check-input-modal").on("click", function () {
 
         const modalCardId = this.id.replace("_modalSwitch", "");
         console.log("modal card is : " + modalCardId);
@@ -299,7 +265,7 @@ $(() => {
         const modalIndex = modalArr.indexOf(modalCardId);
 
         if (modalIndex !== -1) {
-          
+
           modalArr.splice(modalIndex, 1);
           $("#displayContainer").find(`#${modalCardId}`).prop("checked", false);
         }
@@ -308,35 +274,104 @@ $(() => {
           $("#displayContainer").find(`#${modalCardId}`).prop("checked", true);
 
         }
-        console.log(modalArr);
+        console.log(`Updated modal Arr = ${modalArr}`);
 
-        $("#flexSwitchCheckDefault").prop("checked", false);
+
         modal.hide()
 
       });
 
-
-
-
-
-
-    })
-
-
-
-    // Display - Filtered Container Function 
-
-
-    function displayFilteredCards(filteredCards) {
-      displayContainer.innerHTML = "";
-      displayCards(filteredCards);
+      // End of modal function
     }
 
-    // .........................................  
 
 
-    // End of Display cards Function 
+
+
+
+
+
+
+
+
+  // ----------------------------------------------------- Search Bar Section ! ----------------------------------------------------
+ 
+ 
+  // Display - Filtered Container Function 
+
+
+  function displayFilteredCards(filteredCards) {
+    let html = "";
+    for (let i = 0; i < filteredCards.length; i++) {
+      html += `
+
+        <div class="card">
+        <h5 class="card-header">${filteredCards[i].symbol}</h5>
+            <div class="logo-title">
+            <!-- logo -->
+            <img src="${filteredCards[i].image}" class="card-coin-logo" alt="">
+            <h5 class="card-title">${filteredCards[i].name}</h5>
+            </div>
+              <!-- Switch box -->
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        </div>
+
+        <div class="card-body">
+            <!-- title -->
+          
+            <!-- Button -->
+
+            </div>
+            <div class="dataContainer">
+           
+            <button class="moreInfoBtn" id="${cards[i].id}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample${[i]}" aria-expanded="false" aria-controls="collapseWidthExample">
+              More Info (ℹ)
+            
+              </button>
+       
+          <div>
+            <div class="collapse collapse-horizontal" id="collapseWidthExample${[i]}">
+              <div class="card-body-info"  style="width: 300px;">
+              <div></div>
+              
+              </div>
+            </div>
+          </div>
+    
+ 
+        </div>
+    </div>
+        
+        
+        `
+    }
+    displayContainer.innerHTML = html;
+    // Clear other pages ->
+    aboutUs.innerHTML = "";
+    contactUs.innerHTML = "";
+    selectedGraph.innerHTML = "";
+
+// Display Filtered Cards function end -->
   }
+
+  // Get input searchbar
+  const inputSearchBar = document.getElementById("inputSearchBar");
+
+  inputSearchBar.addEventListener("input", function () {
+    const searchTerm = inputSearchBar.value.toLowerCase();
+
+    if (searchTerm === "") {
+      getAndDisplayCards();
+      console.log(searchTerm); // Restore original display
+    } else {
+      const filteredCards = cards.filter(card => card.name.toLowerCase().includes(searchTerm));
+      displayFilteredCards(filteredCards);
+      console.log(filteredCards);
+    }
+  });
+  // .........................................  
+
 
 
   // ============================================================================================================
