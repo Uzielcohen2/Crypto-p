@@ -206,49 +206,60 @@ $(() => {
 
     $("#displayContainer").on("click", ".form-check-input", function () {
       const cardId = $(this).closest(".card").find(".moreInfoBtn").attr("id");
+      console.log(`card id :${cardId} `);
 
       const index = modalArr.indexOf(cardId);
       if (index !== -1) {
         modalArr.splice(index, 1);
+        $(`#${cardId}_modalSwitch`).prop("checked", false);
       } else {
         modalArr.push(cardId);
+        $(`#${cardId}_modalSwitch`).prop("checked", true);
       }
-      console.log(modalArr);
+      console.log("Modal arr = " + modalArr);
 
-      if (modalArr.length === 6) {
+      if (modalArr.length >= 4) {
         showModal();
-      
+
+
 
       }
-      
-      $(".modal-body").on("click","#flexSwitch",function(){
-        // Need to splice after ill catch the id of the toggled button inside the modal  (instead of clear modalArr)
-        modalArr = [];
-        console.log(modalArr);
-        $("#flexSwitchCheckDefault").prop("checked", false);
-        modal.hide()
 
-        });
+      // $(".modal-body").on("click", "#flexSwitch", function () {
+
+      //   const modalCardId = $(this).closest(".card").find(".form-check-input").attr("id");
+
+      //   const modalIndex = modalArr.indexOf(modalCardId);
+
+      //   if (modalIndex !== -1) {
+      //     modalArr.splice(modalIndex, 1);
+      //     $("#displayContainer").find(`#${modalCardId}`).prop("checked", false);
+      //   }
+      //   console.log(modalArr);
+
+      //   $("#flexSwitchCheckDefault").prop("checked", false);
+      //   modal.hide()
+
+      // });
 
 
 
-    
-      
 
-// Show modal function.
-     function showModal() {
+
+
+      // Show modal function.
+      function showModal() {
         const selectedCardsData = [];
 
 
         for (const id of modalArr) {
           const cardData = cards.find(card => card.id === id);
-          if(cardData){
+          if (cardData) {
             selectedCardsData.push(cardData)
           }
-         
+
         }
 
-        console.log(selectedCardsData);
 
         let modalHtml = "";
         for (const data of selectedCardsData) {
@@ -263,7 +274,7 @@ $(() => {
           </div>
           <!-- Switch box -->
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitch">
+            <input class="form-check-input" type="checkbox" role="switch" id="${data.id}_modalSwitch">
           </div>
         </div>
           
@@ -278,7 +289,40 @@ $(() => {
         modal.show()
       }
 
+      // Click event listener to modal toggle button. -->
+
+      $(".modal-body .form-check-input").on("click", function () {
+
+        const modalCardId = this.id.replace("_modalSwitch", "");
+        console.log("modal card is : " + modalCardId);
+
+        const modalIndex = modalArr.indexOf(modalCardId);
+
+        if (modalIndex !== -1) {
+          
+          modalArr.splice(modalIndex, 1);
+          $("#displayContainer").find(`#${modalCardId}`).prop("checked", false);
+        }
+        else {
+          modalArr.push(modalCardId);
+          $("#displayContainer").find(`#${modalCardId}`).prop("checked", true);
+
+        }
+        console.log(modalArr);
+
+        $("#flexSwitchCheckDefault").prop("checked", false);
+        modal.hide()
+
+      });
+
+
+
+
+
+
     })
+
+
 
     // Display - Filtered Container Function 
 
