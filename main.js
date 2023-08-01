@@ -3,10 +3,11 @@ $(() => {
 
   // More Info ARRAY - > 
   const moreInfoArr = [];
-  
+
   //Cards array - > 
   let cards = [];
-  
+  const checkBox = document.getElementsByClassName(`form-check-input`);
+
   // *-*-*-*-*-*-*-*-*-*-
 
   // Session storage function() ->
@@ -111,7 +112,7 @@ $(() => {
             </div>
               <!-- Switch box -->
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <input class="form-check-input" type="checkbox" role="switch" id="${cards[i].id}">
         </div>
 
         <div class="card-body">
@@ -169,7 +170,7 @@ $(() => {
         const container = $(this).closest(".dataContainer");
 
         const cardBodyInfo = container.find(".card-body-info");
-        
+
 
 
         cardBodyInfo.html(`
@@ -205,19 +206,20 @@ $(() => {
 
   $("#displayContainer").on("click", ".form-check-input", function () {
     const cardId = $(this).closest(".card").find(".moreInfoBtn").attr("id");
-    console.log(`card id :${cardId} `);
-
+    // console.log(`card id :${cardId}`);
     const index = modalArr.indexOf(cardId);
+    // console.log(index)
     if (index !== -1) {
       modalArr.splice(index, 1);
+      
       $(`#${cardId}_modalSwitch`).prop("checked", false);
     } else {
       modalArr.push(cardId);
       $(`#${cardId}_modalSwitch`).prop("checked", true);
     }
-    console.log("Modal arr = " + modalArr);
+    // console.log(modalArr);
 
-    if (modalArr.length >= 4) {
+    if (modalArr.length >= 2) {
       showModal();
     }
   });
@@ -271,18 +273,24 @@ $(() => {
     $(".modal-body .form-check-input-modal").on("click", function () {
 
       const modalCardId = this.id.replace("_modalSwitch", "");
-      console.log("modal card is : " + modalCardId);
+      console.log(modalCardId);
 
       const modalIndex = modalArr.indexOf(modalCardId);
 
       if (modalIndex !== -1) {
-
         modalArr.splice(modalIndex, 1);
-        $("#displayContainer").find(`#${modalCardId}`).prop("checked", false);
+        // console.log(checkBox)      
+
+        for(const item of checkBox){
+          let x = item
+          if(x.id === modalCardId){
+            x.checked = false
+          }
+        }
       }
       else {
         modalArr.push(modalCardId);
-        $("#displayContainer").find(`#${modalCardId}`).prop("checked", true);
+        $(".form-check-input").find(`#${modalCardId}`).prop("checked", true);
 
       }
       console.log(`Updated modal Arr = ${modalArr}`);
@@ -297,7 +305,7 @@ $(() => {
 
 
 
-// ----------------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------------
 
 
 
