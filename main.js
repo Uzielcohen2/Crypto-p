@@ -123,7 +123,8 @@ $(() => {
             <div class="dataContainer">
            
             <button class="moreInfoBtn" id="${cards[i].id}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample${[i]}" aria-expanded="false" aria-controls="collapseWidthExample">
-              More Info (ℹ)
+              More Info     <img src="assets/images/currency-exchange.svg" class="more-info-icon">
+
               
               <div class="spinner-border" role="status" style="display: none;"></div>
             
