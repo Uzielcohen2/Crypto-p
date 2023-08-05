@@ -6,7 +6,6 @@ $(() => {
 
   //Cards array - > 
   let cards = [];
-  const checkBox = document.getElementsByClassName(`form-check-input`);
 
   // *-*-*-*-*-*-*-*-*-*-
 
@@ -125,6 +124,8 @@ $(() => {
            
             <button class="moreInfoBtn" id="${cards[i].id}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample${[i]}" aria-expanded="false" aria-controls="collapseWidthExample">
               More Info (ℹ)
+              
+              <div class="spinner-border" role="status" style="display: none;"></div>
             
               </button>
        
@@ -160,7 +161,11 @@ $(() => {
     //  -->> need to load from session ? 
 
     $(".moreInfoBtn").on("click", async function () {
+      const spinner = $(this).closest(".dataContainer").find(".spinner-border");
+      spinner.show();
+
       const json = await getSecondApi(this.id);
+      spinner.hide();
 
       const dataExist = moreInfoArr.find(item => item.id === json.id);
       if (!dataExist) {
@@ -198,9 +203,14 @@ $(() => {
   // ----------------------------------------------------- Modal  Section ! ----------------------------------------------------
 
 
-  // Not working well yet
+  // Prevent modal close if not press to toggle ->
+  const modal = new bootstrap.Modal(`#coinModal`, {
+    backdrop: 'static',
+    keyboard: false,
+  });
 
-  const modal = new bootstrap.Modal(`#coinModal`);
+
+
   let modalArr = [];
 
 
@@ -211,7 +221,7 @@ $(() => {
     // console.log(index)
     if (index !== -1) {
       modalArr.splice(index, 1);
-      
+
       $(`#${cardId}_modalSwitch`).prop("checked", false);
     } else {
       modalArr.push(cardId);
@@ -219,7 +229,7 @@ $(() => {
     }
     // console.log(modalArr);
 
-    if (modalArr.length >= 2) {
+    if (modalArr.length >= 6) {
       showModal();
     }
   });
@@ -227,6 +237,9 @@ $(() => {
   // Show modal function -- > 
 
   function showModal() {
+
+
+
     const selectedCardsData = [];
 
 
@@ -253,6 +266,7 @@ $(() => {
           </div>
           <!-- Switch box -->
           <div class="form-check form-switch">
+          <p class="arrow-modal">↻</p>
             <input class="form-check-input-modal" type="checkbox" role="switch" id="${data.id}_modalSwitch">
           </div>
         </div>
@@ -265,12 +279,18 @@ $(() => {
     // Insert inside html ->
     $(".modal-body").html(modalHtml);
 
-    modal.show()
+    modal.show();
+
+
+
+
 
 
     // Click event listener to modal toggle button. -->
 
     $(".modal-body .form-check-input-modal").on("click", function () {
+      const checkBox = document.getElementsByClassName(`form-check-input`);
+
 
       const modalCardId = this.id.replace("_modalSwitch", "");
       console.log(modalCardId);
@@ -279,11 +299,10 @@ $(() => {
 
       if (modalIndex !== -1) {
         modalArr.splice(modalIndex, 1);
-        // console.log(checkBox)      
-
-        for(const item of checkBox){
+        console.log(checkBox);
+        for (const item of checkBox) {
           let x = item
-          if(x.id === modalCardId){
+          if (x.id === modalCardId) {
             x.checked = false
           }
         }
