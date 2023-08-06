@@ -46,10 +46,15 @@ body {
 
 
 /* =================================================================== */
+/* Whole page section -> */
+#pagesSection{
+    padding-top: 65px;
+}
 
 
 
 /*------------------------ Navbar - Section ------------------------- */
+/* Navbar himself */
 
 /* Whole Links */
 .nav-item {
@@ -89,6 +94,12 @@ body {
 .btn-outline-success {
     color: lightskyblue;
     border: 0.5px solid lightskyblue;
+}
+
+#searchClearInput{
+    color: white;
+    display: flex;
+    justify-content: center;
 }
 
 /* ----------------------------------------------------------------
@@ -196,13 +207,9 @@ li {
 /* Modal Toggle button  ->  */
 .form-check-input-modal {
     position: absolute;
-    /* top: 2px; */
-    /* left: 2px; */
     width: 30px;
     height: 35px;
-    /* background-color: #fff; */
-    /* border-radius: 50%; */
-    /* transition: 0.3s; */
+
 }
 
 .arrow-modal {
@@ -210,6 +217,11 @@ li {
     margin-top: 25px;
 }
 
+.close{
+    background-color: rgb(227, 80, 80);
+    font-size: larger;
+    color: black;
+}
 
 
 /* COMING SOON SECTION  */

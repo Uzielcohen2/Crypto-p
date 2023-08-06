@@ -1,28 +1,38 @@
 "use strict";
 $(() => {
 
-  // More Info ARRAY - > 
-  const moreInfoArr = [];
-
   //Cards array - > 
   let cards = [];
+  // More Info ARRAY - > 
+  let moreInfoArr = [];
+  // Modal Arr - >
+  let modalArr = [];
+  // Selected cards array ->
+  let selectedCardsData = [];
 
-  // *-*-*-*-*-*-*-*-*-*-
 
-  // Session storage function() ->
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
-  function saveToSessionStorage() {
-    const strData = JSON.stringify(moreInfoArr);
-    console.log(typeof strData);
-    sessionStorage.setItem("savedData", strData);
-  }
 
   // On-load -> Display first page . ->->
   getAndDisplayCards();
 
   // ---------------------------------------
 
-  // Context Navigation
+  // Containers - > 
+  const displayContainer = document.getElementById("displayContainer");
+  const inputSearchBar = document.getElementById("inputSearchBar");
+  const contactUs = document.getElementById("contactUs");
+  const aboutUs = document.getElementById("aboutUs");
+  const selectedGraph = document.getElementById("selectedGraph");
+
+
+
+
+
+
+
+  // Context Navigation ->
   const liveReportsLink = document.getElementById("liveReportsLink");
   const contactUsLink = document.getElementById("contactUsLink");
   const aboutUsLink = document.getElementById("aboutUsLink");
@@ -52,7 +62,7 @@ $(() => {
     displayLiveSelected();
   })
 
-
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 
   // *-*-*-*-*-*-*-*-*-*-
@@ -77,7 +87,7 @@ $(() => {
     return json;
   }
 
-  // ------------------------------------------------------------------------------------------------------------
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 
   // *-*-*-*-*-*-*-*-*-*-
@@ -85,15 +95,19 @@ $(() => {
 
   // *-*-*-*-*-*-*-*-*-*-
 
+
+
   // Get and display cards function -->
   async function getAndDisplayCards() {
     cards = await getApi("api.json");
     displayCards(cards)
   }
-  // ----------------------------------
 
-  // Get Container -->
-  const displayContainer = document.getElementById("displayContainer");
+  // *-*-*-*-*-*-*-*-*-*-
+  // -----------------------------------------------------------------------------------------------------------
+  // *-*-*-*-*-*-*-*-*-*-
+
+  // Get Container 
 
   // Display - Container -->
 
@@ -155,122 +169,124 @@ $(() => {
     contactUs.innerHTML = "";
     selectedGraph.innerHTML = "";
 
-
+    // ---------------------------------------------------------------------------------------------------------------------------------
 
     // More Info Button -->
 
-    //  -->> need to load from session ? 
+    $(".moreInfoBtn").one("click", async function () {
 
-    $(".moreInfoBtn").on("click", async function () {
+      // Spinner ->
       const spinner = $(this).closest(".dataContainer").find(".spinner-border");
       spinner.show();
 
+      // Get data ->
       const json = await getSecondApi(this.id);
+      // Hide Spinner ->
       spinner.hide();
 
       const dataExist = moreInfoArr.find(item => item.id === json.id);
       if (!dataExist) {
         moreInfoArr.push(json);
-        console.log(moreInfoArr)
+        console.log(moreInfoArr); // delete - after use
 
+        // Catch which button have been pressed ->
         const container = $(this).closest(".dataContainer");
-
+        console.log(container);// delete - after use
         const cardBodyInfo = container.find(".card-body-info");
-
-
-
+        // Push to Html ->
         cardBodyInfo.html(`
       
        <ul>
           <li>Israeli : ${json.market_data.current_price.ils}  ₪ </li>
           <li>Euro : ${json.market_data.current_price.eur}  € </li>
           <li>Dollar : ${json.market_data.current_price.usd}  $</li>
-      </ul>
+       </ul>
         `)
-
-        saveToSessionStorage();
+        //  If exist - >
       } else {
+
         console.log(`Data already exist in array, Saving again is unnecessary`);
+
       }
+      // Save to local storage
+      const strData = JSON.stringify(moreInfoArr);
+      sessionStorage.setItem("savedData", strData);
     });
 
-    // ---------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------------------------
 
-    // End of Display cards Function 
+    // End of Display cards Function -> 
+
   }
 
-
-
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
   // ----------------------------------------------------- Modal  Section ! ----------------------------------------------------
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 
-  // Prevent modal close if not press to toggle ->
+
+  // Get modal and prevent modal from closing without toggle or X button ->
   const modal = new bootstrap.Modal(`#coinModal`, {
     backdrop: 'static',
     keyboard: false,
   });
 
-
-
-  let modalArr = [];
-
-
+  // Pop modal while 6 cards have been chosen - >
   $("#displayContainer").on("click", ".form-check-input", function () {
     const cardId = $(this).closest(".card").find(".moreInfoBtn").attr("id");
-    // console.log(`card id :${cardId}`);
     const index = modalArr.indexOf(cardId);
-    // console.log(index)
+    // If exist ->
     if (index !== -1) {
       modalArr.splice(index, 1);
-
       $(`#${cardId}_modalSwitch`).prop("checked", false);
+      // If not exist ->
     } else {
       modalArr.push(cardId);
       $(`#${cardId}_modalSwitch`).prop("checked", true);
     }
-    // console.log(modalArr);
 
+    // If 6 cards chosen ->
     if (modalArr.length >= 6) {
       showModal();
     }
   });
+  // ---------------------------------------------------------------------------------------------------------------------------------
 
   // Show modal function -- > 
 
   function showModal() {
-
-
-
-    const selectedCardsData = [];
-
-
+    // Compare chosen cards id and push them to the modal->
     for (const id of modalArr) {
       const cardData = cards.find(card => card.id === id);
-      if (cardData) {
-        selectedCardsData.push(cardData)
+      if (cardData && selectedCardsData.length <= 5) {
+        selectedCardsData.push(cardData);
+        console.log(selectedCardsData);
       }
+      
+      
 
     }
 
 
-
+    // Clear modal html ->
     let modalHtml = "";
+    // push data to modal html ->
     for (const data of selectedCardsData) {
       modalHtml += `
-          <div class="card">
-          <h5 class="card-header">${data.symbol}</h5>
-          <div class="logo-title">
-            <!-- logo -->
-            <img src="${data.image}" class="modal-logo" alt="my-logo" width="20%">
+    <div class="card">
+      <h5 class="card-header">${data.symbol}</h5>
+        <div class="logo-title">
+          <!-- logo -->
+          <img src="${data.image}" class="modal-logo" alt="my-logo" width="20%">
             <br></br>
-            <h5 class="card-title">${data.name}</h5>
-          </div>
-          <!-- Switch box -->
-          <div class="form-check form-switch">
-          <p class="arrow-modal">↻</p>
-            <input class="form-check-input-modal" type="checkbox" role="switch" id="${data.id}_modalSwitch">
-          </div>
+              <h5 class="card-title">${data.name}</h5>
         </div>
+            <!-- Switch box -->
+              <div class="form-check form-switch">
+                <p class="arrow-modal">↻</p>
+                <input class="form-check-input-modal" type="checkbox" role="switch" id="${data.id}_modalSwitch">
+            </div>
+    </div>
           
           `
     }
@@ -279,28 +295,36 @@ $(() => {
 
     // Insert inside html ->
     $(".modal-body").html(modalHtml);
-
+    // Pop modal ->
     modal.show();
 
+    // Closing modal button - > 
 
+    $(".close").one("click", () => {
+      // Get the id of the last card
+      const lastSelectedCardId = modalArr[modalArr.length - 1];
+      const cardCheckbox = $(`#${lastSelectedCardId}`);
+      // Splice the last card that pushed to the array
+      modalArr.splice(modalArr.length - 1, 1);
+      // Hide the modal - >
+      modal.hide();
+      // Uncheck the last card on the main screen
+      cardCheckbox.prop("checked", false);
+    })
+    console.log(modalArr);
 
-
-
-
-    // Click event listener to modal toggle button. -->
+    // Modal toggle button  -->
 
     $(".modal-body .form-check-input-modal").on("click", function () {
+      // Get all checked cards array
       const checkBox = document.getElementsByClassName(`form-check-input`);
-
-
+      // Get the id 
       const modalCardId = this.id.replace("_modalSwitch", "");
-      console.log(modalCardId);
-
+      // Get his index
       const modalIndex = modalArr.indexOf(modalCardId);
-
+      // Check if exist and check/uncheck ->
       if (modalIndex !== -1) {
         modalArr.splice(modalIndex, 1);
-        console.log(checkBox);
         for (const item of checkBox) {
           let x = item
           if (x.id === modalCardId) {
@@ -308,15 +332,16 @@ $(() => {
           }
         }
       }
+      // If not exist ->
       else {
         modalArr.push(modalCardId);
         $(".form-check-input").find(`#${modalCardId}`).prop("checked", true);
+            }
 
-      }
-      console.log(`Updated modal Arr = ${modalArr}`);
+// Hide the modal
+      modal.hide();
 
-
-      modal.hide()
+// End of click function ->
 
     });
 
@@ -325,26 +350,31 @@ $(() => {
 
 
 
-  // ----------------------------------------------------------------------------------------------
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 
-
-
-
-
-
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
   // ----------------------------------------------------- Search Bar Section ! ----------------------------------------------------
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 
   // Display - Filtered Container Function 
-
-  // Only name or id + name ? 
-
-
   function displayFilteredCards(filteredCards) {
-    let html = "";
-    for (let i = 0; i < filteredCards.length; i++) {
-      html += `
+    // Message if not find any match ->
+    if (filteredCards.length === 0) {
+      displayContainer.innerHTML = `
+      <div style = "color:white">
+      <h1>ERROR : The currency was not found,Please check your spelling.</h1>
+      <img src="assets/images/try-again.jpeg" alt="Try-Again">
+      </div>
+
+      `;
+    }
+    // If does find - >
+    else {
+      let html = "";
+      for (let i = 0; i < filteredCards.length; i++) {
+        html += `
 
         <div class="card">
         <h5 class="card-header">${filteredCards[i].symbol}</h5>
@@ -386,8 +416,11 @@ $(() => {
         
         
         `
+      }
+
+      displayContainer.innerHTML = html;
     }
-    displayContainer.innerHTML = html;
+
     // Clear other pages ->
     aboutUs.innerHTML = "";
     contactUs.innerHTML = "";
@@ -397,16 +430,15 @@ $(() => {
   }
 
   // Get input searchbar
-  const inputSearchBar = document.getElementById("inputSearchBar");
 
   inputSearchBar.addEventListener("input", function () {
     const searchTerm = inputSearchBar.value.toLowerCase();
 
     if (searchTerm === "") {
       getAndDisplayCards();
-      console.log(searchTerm); // Restore original display
+
     } else {
-      const filteredCards = cards.filter(card => card.name.toLowerCase().includes(searchTerm));
+      const filteredCards = cards.filter(card => card.name.toLowerCase().includes(searchTerm) || card.symbol.toLowerCase().includes(searchTerm));
       displayFilteredCards(filteredCards);
       console.log(filteredCards);
     }
@@ -423,7 +455,6 @@ $(() => {
   // ---> Contact Us Page ->
 
   // Get Container
-  const contactUs = document.getElementById("contactUs");
 
   function displayContactUs() {
 
@@ -474,9 +505,6 @@ $(() => {
   // ============================================================================================================
 
   // -> About Us Page -->
-
-  // Get Container
-  const aboutUs = document.getElementById("aboutUs");
 
   function displayAboutUs() {
 
@@ -565,10 +593,6 @@ $(() => {
 
 
   // Live graph page ---- > 
-
-  // Get container ->
-
-  const selectedGraph = document.getElementById("selectedGraph");
 
   function displayLiveSelected() {
 

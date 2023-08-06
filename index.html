@@ -23,7 +23,7 @@
 
 
     <!-- Nav-Bar Section  -->
-    <nav class="navbar bg-dark border-bottom border-bottom-dark">
+    <nav class="navbar fixed-top bg-dark border-bottom border-bottom-dark" id="navBarId">
         <div class="container-fluid">
             <img src="assets/images/usd-coin-usdc-logo.png" class="logo-brand" alt="my-logo">
 
@@ -53,11 +53,12 @@
     </nav>
 
 
+
     <!-- Whole pages Section-->
     <div id="pagesSection">
 
         <!-- Cards from js section -->
-      
+
         <div id="titleContainer"></div>
 
         <div id="displayContainer">
@@ -75,19 +76,27 @@
 
         <!-- Modal Section -->
 
-        <div class="modal fade" id="coinModal" data-keyboard="false" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="coinModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
+
+
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     <h2> You can choose only 5 coins.</h2>
                     <br>
-                    <h4>Please remove one of your previous coins by click on the check box below.</h4>
+                    <h5>Please remove one of your previous coins by click on the check box below,Or exit the modal to uncheck your last chosen card.</h5>
                     <h6>Thank you.</h6>
                     <hr>
                     <div class="modal-body" id="modalBody">
                         <!-- Modal selected cards  -->
-                     
-                        <!-- create a title on each page. -->
-                     
+
+                        <!-- Fix the modal , he show only the first selected cards .......... fuck me -->
                         <!-- 2 Sec ? -->
                         <!-- Organize the code !  -->
                         <!-- Check what you miss in both forms . -->
