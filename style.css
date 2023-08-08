@@ -102,6 +102,15 @@ body {
     justify-content: center;
 }
 
+.not-found-div{
+    color: #d1e5ff;
+}
+.not-found-div > img {
+  
+       border-bottom-style: dotted;
+       padding-left: 200px;
+}
+
 /* ----------------------------------------------------------------
   /* Card section */
 

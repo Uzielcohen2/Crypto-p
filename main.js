@@ -234,6 +234,7 @@ $(() => {
   // Pop modal while 6 cards have been chosen - >
   $("#displayContainer").on("click", ".form-check-input", function () {
     const cardId = $(this).closest(".card").find(".moreInfoBtn").attr("id");
+    console.log(`card id is ${cardId}`);
     const index = modalArr.indexOf(cardId);
     // If exist ->
     if (index !== -1) {
@@ -243,6 +244,7 @@ $(() => {
     } else {
       modalArr.push(cardId);
       $(`#${cardId}_modalSwitch`).prop("checked", true);
+      console.log(modalArr);
     }
 
     // If 6 cards chosen ->
@@ -258,12 +260,13 @@ $(() => {
     // Compare chosen cards id and push them to the modal->
     for (const id of modalArr) {
       const cardData = cards.find(card => card.id === id);
-      if (cardData && selectedCardsData.length <= 5) {
+      if (cardData && selectedCardsData.length < 6) {
+
         selectedCardsData.push(cardData);
-        console.log(selectedCardsData);
+        console.log(`Name: ${cardData.name}`);
+        console.log(`Selected : ` + " " + selectedCardsData);
+
       }
-      
-      
 
     }
 
@@ -276,12 +279,12 @@ $(() => {
     <div class="card">
       <h5 class="card-header">${data.symbol}</h5>
         <div class="logo-title">
-          <!-- logo -->
+         
           <img src="${data.image}" class="modal-logo" alt="my-logo" width="20%">
             <br></br>
               <h5 class="card-title">${data.name}</h5>
         </div>
-            <!-- Switch box -->
+
               <div class="form-check form-switch">
                 <p class="arrow-modal">↻</p>
                 <input class="form-check-input-modal" type="checkbox" role="switch" id="${data.id}_modalSwitch">
@@ -289,12 +292,16 @@ $(() => {
     </div>
           
           `
+      console.log(data.name);
     }
+
+
 
 
 
     // Insert inside html ->
     $(".modal-body").html(modalHtml);
+    modalHtml = ""
     // Pop modal ->
     modal.show();
 
@@ -311,11 +318,10 @@ $(() => {
       // Uncheck the last card on the main screen
       cardCheckbox.prop("checked", false);
     })
-    console.log(modalArr);
 
     // Modal toggle button  -->
 
-    $(".modal-body .form-check-input-modal").on("click", function () {
+    $(".modal-body .form-check-input-modal").one("click", function () {
       // Get all checked cards array
       const checkBox = document.getElementsByClassName(`form-check-input`);
       // Get the id 
@@ -336,12 +342,12 @@ $(() => {
       else {
         modalArr.push(modalCardId);
         $(".form-check-input").find(`#${modalCardId}`).prop("checked", true);
-            }
+      }
 
-// Hide the modal
+      // Hide the modal
       modal.hide();
 
-// End of click function ->
+      // End of click function ->
 
     });
 
@@ -363,8 +369,9 @@ $(() => {
     // Message if not find any match ->
     if (filteredCards.length === 0) {
       displayContainer.innerHTML = `
-      <div style = "color:white">
+      <div class ="not-found-div">
       <h1>ERROR : The currency was not found,Please check your spelling.</h1>
+      <br></br>
       <img src="assets/images/try-again.jpeg" alt="Try-Again">
       </div>
 
@@ -610,15 +617,6 @@ $(() => {
     displayContainer.innerHTML = "";
     contactUs.innerHTML = "";
   }
-
-
-
-
-
-
-
-
-
 
 
   // End Of the code.
