@@ -7,8 +7,7 @@ $(() => {
   let moreInfoArr = [];
   // Modal Arr - >
   let modalArr = [];
-  // Selected cards array ->
-  let selectedCardsData = [];
+
 
 
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
@@ -233,7 +232,7 @@ $(() => {
 
   // Pop modal while 6 cards have been chosen - >
   $("#displayContainer").on("click", ".form-check-input", function () {
-    const cardId = $(this).closest(".card").find(".moreInfoBtn").attr("id");
+    const cardId = $(this).closest(".card").find(".form-check-input").attr("id");
     console.log(`card id is ${cardId}`);
     const index = modalArr.indexOf(cardId);
     // If exist ->
@@ -245,10 +244,11 @@ $(() => {
       modalArr.push(cardId);
       $(`#${cardId}_modalSwitch`).prop("checked", true);
       console.log(modalArr);
+      
     }
 
     // If 6 cards chosen ->
-    if (modalArr.length >= 6) {
+    if (modalArr.length === 6) {
       showModal();
     }
   });
@@ -257,6 +257,9 @@ $(() => {
   // Show modal function -- > 
 
   function showModal() {
+  // Selected cards array ->
+
+  let selectedCardsData = [];
     // Compare chosen cards id and push them to the modal->
     for (const id of modalArr) {
       const cardData = cards.find(card => card.id === id);
@@ -264,8 +267,6 @@ $(() => {
 
         selectedCardsData.push(cardData);
         console.log(`Name: ${cardData.name}`);
-        console.log(`Selected : ` + " " + selectedCardsData);
-
       }
 
     }
@@ -273,6 +274,7 @@ $(() => {
 
     // Clear modal html ->
     let modalHtml = "";
+
     // push data to modal html ->
     for (const data of selectedCardsData) {
       modalHtml += `
@@ -301,7 +303,6 @@ $(() => {
 
     // Insert inside html ->
     $(".modal-body").html(modalHtml);
-    modalHtml = ""
     // Pop modal ->
     modal.show();
 
@@ -309,19 +310,26 @@ $(() => {
 
     $(".close").one("click", () => {
       // Get the id of the last card
+      
       const lastSelectedCardId = modalArr[modalArr.length - 1];
+      if(lastSelectedCardId){
       const cardCheckbox = $(`#${lastSelectedCardId}`);
+      if(cardCheckbox.length === 1){
       // Splice the last card that pushed to the array
       modalArr.splice(modalArr.length - 1, 1);
       // Hide the modal - >
       modal.hide();
       // Uncheck the last card on the main screen
       cardCheckbox.prop("checked", false);
+      }else{
+        console.log("not again");
+      }
+    }
     })
 
     // Modal toggle button  -->
 
-    $(".modal-body .form-check-input-modal").one("click", function () {
+    $(".modal-body .form-check-input-modal").on("click", function () {
       // Get all checked cards array
       const checkBox = document.getElementsByClassName(`form-check-input`);
       // Get the id 
