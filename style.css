@@ -1,7 +1,7 @@
-
-.title-icon{
+.title-icon {
     color: white;
 }
+
 /* Body */
 body {
     background-color: #003459;
@@ -44,10 +44,46 @@ body {
     }
 }
 
+/* Media fixes - > Mobile */
+@media (max-width: 1400px) {
+    #pagesSection {
+        padding-top: 150px;
+        
+    }
+
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    #pagesSection {
+        margin-top: 170px;
+    }
+
+
+    @media (max-width: 768px) {
+        .navbar {
+            padding-bottom: 10px;
+            /* Adjust this value as needed */
+        }
+
+        .navbar-brand {
+            margin-top: -5px;
+            /* Adjust this value as needed */
+        }
+
+        .navbar-nav {
+            margin-top: 5px;
+            /* Adjust this value as needed */
+        }
+
+    }
+}
+
+
 
 /* =================================================================== */
 /* Whole page section -> */
-#pagesSection{
+#pagesSection {
     padding-top: 65px;
 }
 
@@ -96,19 +132,20 @@ body {
     border: 0.5px solid lightskyblue;
 }
 
-#searchClearInput{
+#searchClearInput {
     color: white;
     display: flex;
     justify-content: center;
 }
 
-.not-found-div{
+.not-found-div {
     color: #d1e5ff;
 }
-.not-found-div > img {
-  
-       border-bottom-style: dotted;
-       padding-left: 200px;
+
+.not-found-div>img {
+
+    border-bottom-style: dotted;
+    padding-left: 200px;
 }
 
 /* ----------------------------------------------------------------
@@ -226,7 +263,7 @@ li {
     margin-top: 25px;
 }
 
-.close{
+.close {
     background-color: rgb(227, 80, 80);
     font-size: larger;
     color: black;

@@ -180,12 +180,17 @@ $(() => {
 
       // Get data ->
       const json = await getSecondApi(this.id);
+      // Add time prop - > 
+      json.time = new Date();
+
+
       // Hide Spinner ->
       spinner.hide();
 
       const dataExist = moreInfoArr.find(item => item.id === json.id);
       if (!dataExist) {
         moreInfoArr.push(json);
+
         console.log(moreInfoArr); // delete - after use
 
         // Catch which button have been pressed ->
@@ -203,8 +208,7 @@ $(() => {
         `)
         //  If exist - >
       } else {
-
-        console.log(`Data already exist in array, Saving again is unnecessary`);
+        return;
 
       }
       // Save to local storage
@@ -244,7 +248,7 @@ $(() => {
       modalArr.push(cardId);
       $(`#${cardId}_modalSwitch`).prop("checked", true);
       console.log(modalArr);
-      
+
     }
 
     // If 6 cards chosen ->
@@ -257,9 +261,9 @@ $(() => {
   // Show modal function -- > 
 
   function showModal() {
-  // Selected cards array ->
+    // Selected cards array ->
 
-  let selectedCardsData = [];
+    let selectedCardsData = [];
     // Compare chosen cards id and push them to the modal->
     for (const id of modalArr) {
       const cardData = cards.find(card => card.id === id);
@@ -310,21 +314,21 @@ $(() => {
 
     $(".close").one("click", () => {
       // Get the id of the last card
-      
+
       const lastSelectedCardId = modalArr[modalArr.length - 1];
-      if(lastSelectedCardId){
-      const cardCheckbox = $(`#${lastSelectedCardId}`);
-      if(cardCheckbox.length === 1){
-      // Splice the last card that pushed to the array
-      modalArr.splice(modalArr.length - 1, 1);
-      // Hide the modal - >
-      modal.hide();
-      // Uncheck the last card on the main screen
-      cardCheckbox.prop("checked", false);
-      }else{
-        console.log("not again");
+      if (lastSelectedCardId) {
+        const cardCheckbox = $(`#${lastSelectedCardId}`);
+        if (cardCheckbox.length === 1) {
+          // Splice the last card that pushed to the array
+          modalArr.splice(modalArr.length - 1, 1);
+          // Hide the modal - >
+          modal.hide();
+          // Uncheck the last card on the main screen
+          cardCheckbox.prop("checked", false);
+        } else {
+          console.log("not again");
+        }
       }
-    }
     })
 
     // Modal toggle button  -->
