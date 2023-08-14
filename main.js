@@ -312,24 +312,7 @@ $(() => {
 
     // Closing modal button - > 
 
-    $(".close").one("click", () => {
-      // Get the id of the last card
 
-      const lastSelectedCardId = modalArr[modalArr.length - 1];
-      if (lastSelectedCardId) {
-        const cardCheckbox = $(`#${lastSelectedCardId}`);
-        if (cardCheckbox.length === 1) {
-          // Splice the last card that pushed to the array
-          modalArr.splice(modalArr.length - 1, 1);
-          // Hide the modal - >
-          modal.hide();
-          // Uncheck the last card on the main screen
-          cardCheckbox.prop("checked", false);
-        } else {
-          console.log("not again");
-        }
-      }
-    })
 
     // Modal toggle button  -->
 
@@ -366,11 +349,30 @@ $(() => {
     // End of modal function
   }
 
+// Close button function modal ->
+  $(".close").on("click", () => {
+    // Get the id of the last card
 
-
+    const lastSelectedCardId = modalArr[modalArr.length - 1];
+    console.log(lastSelectedCardId + "12121211");
+    if (lastSelectedCardId) {
+      const cardCheckbox = $(`#${lastSelectedCardId}`);
+      if (lastSelectedCardId) {
+        // Splice the last card that pushed to the array
+        modalArr.pop();
+        // Hide the modal - >
+        modal.hide();
+        // Uncheck the last card on the main screen
+        cardCheckbox.prop("checked", false);
+      } else {
+       return;
+      }
+    }
+  })
+  
+  // End Of MODAL SECTION ! 
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-
-
+  
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
   // ----------------------------------------------------- Search Bar Section ! ----------------------------------------------------
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
