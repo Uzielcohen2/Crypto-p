@@ -46,39 +46,26 @@ body {
 }
 
 /* Media fixes - > Mobile */
-@media (max-width: 1400px) {
-    #pagesSection {
-        padding-top: 150px;
-        
-    }
+ @media(max-width: 1400px) {
 
     ::-webkit-scrollbar {
         width: 0px;
     }
-
-    #pagesSection {
-        margin-top: 170px;
-    }
-
-
-    @media (max-width: 768px) {
-        .navbar {
-            padding-bottom: 10px;
-            /* Adjust this value as needed */
-        }
-
-        .navbar-brand {
-            margin-top: -5px;
-            /* Adjust this value as needed */
-        }
-
-        .navbar-nav {
-            margin-top: 5px;
-            /* Adjust this value as needed */
-        }
-
+    #navBarId{
+        position: relative;
     }
 }
+@media(max-width:700px){
+    ::-webkit-scrollbar{
+        display: none;
+    }
+    #navLinks{
+        overflow-y: hidden;
+    }
+}
+
+
+
 
 
 
@@ -88,10 +75,8 @@ body {
     padding-top: 65px;
     background-image: url("assets/images/2304.w056.n005.188B.p15.188.jpg");
 
-    /* Set a specific height */
     min-height: 100%;
   
-    /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -127,6 +112,9 @@ body {
 .logo-brand {
     width: 50px;
     animation: rotation 2s infinite linear;
+}
+.navbar{
+    position: fixed;
 }
 
 
