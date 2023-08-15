@@ -594,9 +594,9 @@ $(() => {
 
     let html = `
 
-    <img src ="assets/images/under-construction.jpeg" class="coming-soon">
+    <img src ="assets/images/coming-soon-2550190_640.jpg" class="coming-soon">
    
-    <h5>Thank you for your patient</h5>
+    <h5 class ="patient">Thank you for your patient</h5>
  
   
     `

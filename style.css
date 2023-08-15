@@ -4,7 +4,7 @@
 }
 
 /* Body */
-body {
+body ,html {
     font-size: larger;
     height: 100%;
 }
@@ -272,8 +272,15 @@ li {
 
 /* COMING SOON SECTION  */
 .coming-soon {
-    min-inline-size: -webkit-fill-available;
+    inline-size: -webkit-fill-available;
 }
+.patient{
+    background-image: linear-gradient(45deg,black , transparent);
+    font-size: xx-large;
+    color: white;
+    text-align: center;
+}
+
 
 
 /* About us -> */
@@ -308,10 +315,8 @@ li {
 /* Contact us -> */
 #contact {
     color: white;
-    height: 1000px;
 
 }
-
 
 #contact-us-img {
     mix-blend-mode: lighten;
