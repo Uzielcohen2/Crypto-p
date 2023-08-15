@@ -1,11 +1,12 @@
+
 .title-icon {
     color: white;
 }
 
 /* Body */
 body {
-    background-color: #003459;
     font-size: larger;
+    height: 100%;
 }
 
 
@@ -85,6 +86,17 @@ body {
 /* Whole page section -> */
 #pagesSection {
     padding-top: 65px;
+    background-image: url("assets/images/2304.w056.n005.188B.p15.188.jpg");
+
+    /* Set a specific height */
+    min-height: 100%;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  
 }
 
 
@@ -280,6 +292,27 @@ li {
 #about {
     color: white;
     font-family: monospace;
+    font-size: 30px;
+}
+.display-4 , .knowledge , .mb-4 , .info-title{
+    color: wheat;
+}
+
+.our-services{
+    border: 2px solid black;
+    margin-left: 90px;
+    height: fit-content;
+
+}
+
+.services-title{
+    margin-left: 30%;
+    color: wheat;
+}
+
+.lead , .knowledge-div , .about-info{
+    background: linear-gradient(45deg, black, transparent);
+
 }
 
 /*  */
@@ -287,7 +320,10 @@ li {
 /* Contact us -> */
 #contact {
     color: white;
+    height: 1000px;
+
 }
+
 
 #contact-us-img {
     mix-blend-mode: lighten;

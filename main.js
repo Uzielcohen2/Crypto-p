@@ -8,15 +8,11 @@ $(() => {
   // Modal Arr - >
   let modalArr = [];
 
-
-
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-
 
   // On-load -> Display first page . ->->
   getAndDisplayCards();
-
-  // ---------------------------------------
+  // ------------------------------------------------------------------------------------------------------------
 
   // Containers - > 
   const displayContainer = document.getElementById("displayContainer");
@@ -24,51 +20,41 @@ $(() => {
   const contactUs = document.getElementById("contactUs");
   const aboutUs = document.getElementById("aboutUs");
   const selectedGraph = document.getElementById("selectedGraph");
-
-
-
-
-
-
+  // --------------------------------------------------------------------------------------------------------------
 
   // Context Navigation ->
   const liveReportsLink = document.getElementById("liveReportsLink");
   const contactUsLink = document.getElementById("contactUsLink");
   const aboutUsLink = document.getElementById("aboutUsLink");
   const selectedGraphLink = document.getElementById("selectedGraphLink");
+  // --------------------------------------------------------------------------------------------------------------
 
   // Live Reports ->
-
   liveReportsLink.addEventListener("click", () => {
     getAndDisplayCards();
   });
-
+  // **************
   // Contact Us ->
-
   contactUsLink.addEventListener("click", () => {
     displayContactUs()
   })
-
+  // **************
   // About us ->
-
   aboutUsLink.addEventListener("click", () => {
     displayAboutUs()
   })
-
+  // **************
   // Live selected graph -->
-
   selectedGraphLink.addEventListener("click", () => {
     displayLiveSelected();
   })
+  // **************
 
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
-
-  // *-*-*-*-*-*-*-*-*-*-
-  // --------------------------------API PULL SECTION ----------------------------------------------------
-  // *-*-*-*-*-*-*-*-*-*-
-
-
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+  // ---------------------------------------------------API PULL SECTION ----------------------------------------------------
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
   // Get API ->
   async function getApi(url) {
 
@@ -76,38 +62,30 @@ $(() => {
     const json = await data.json();
     return json;
   }
-
-  // Get Second Details (API2)
-
+  // Get Second Details (API2) ->
   async function getSecondApi(values) {
 
     const data = await fetch(`https://api.coingecko.com/api/v3/coins/${values}`);
     const json = await data.json();
     return json;
   }
-
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
-
-  // *-*-*-*-*-*-*-*-*-*-
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
   // --------------------------------Display Cards SECTION ----------------------------------------------------
-
-  // *-*-*-*-*-*-*-*-*-*-
-
-
+  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
   // Get and display cards function -->
+
   async function getAndDisplayCards() {
+    try{
     cards = await getApi("api.json");
     displayCards(cards)
+    }catch(err){
+      console.log(`Fetch cards failed ${err}`);
+    }
   }
-
-  // *-*-*-*-*-*-*-*-*-*-
   // -----------------------------------------------------------------------------------------------------------
-  // *-*-*-*-*-*-*-*-*-*-
-
-  // Get Container 
-
   // Display - Container -->
 
   function displayCards(cards) {
@@ -172,8 +150,10 @@ $(() => {
 
     // More Info Button -->
 
-    $(".moreInfoBtn").one("click", async function () {
 
+
+    $(".moreInfoBtn").one("click", async function () {
+      try{
       // Spinner ->
       const spinner = $(this).closest(".dataContainer").find(".spinner-border");
       spinner.show();
@@ -188,14 +168,11 @@ $(() => {
       spinner.hide();
 
       const dataExist = moreInfoArr.find(item => item.id === json.id);
+      // If data isn`t exist - push it ->
       if (!dataExist) {
         moreInfoArr.push(json);
-
-        console.log(moreInfoArr); // delete - after use
-
         // Catch which button have been pressed ->
         const container = $(this).closest(".dataContainer");
-        console.log(container);// delete - after use
         const cardBodyInfo = container.find(".card-body-info");
         // Push to Html ->
         cardBodyInfo.html(`
@@ -206,27 +183,30 @@ $(() => {
           <li>Dollar : ${json.market_data.current_price.usd}  $</li>
        </ul>
         `)
-        //  If exist - >
+        //  If does exist - >
       } else {
         return;
-
       }
+      // Catch the Error -  >
+    }catch(err){
+      console.log("Error fetching more info data:", err);
+    }
+
       // Save to local storage
       const strData = JSON.stringify(moreInfoArr);
       sessionStorage.setItem("savedData", strData);
     });
 
-    // ---------------------------------------------------------------------------------------------------------------------------------
 
-    // End of Display cards Function -> 
 
-  }
+
+  } //---> End of Display cards Function 
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
 
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
   // ----------------------------------------------------- Modal  Section ! ----------------------------------------------------
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-
-
 
   // Get modal and prevent modal from closing without toggle or X button ->
   const modal = new bootstrap.Modal(`#coinModal`, {
@@ -237,7 +217,6 @@ $(() => {
   // Pop modal while 6 cards have been chosen - >
   $("#displayContainer").on("click", ".form-check-input", function () {
     const cardId = $(this).closest(".card").find(".form-check-input").attr("id");
-    console.log(`card id is ${cardId}`);
     const index = modalArr.indexOf(cardId);
     // If exist ->
     if (index !== -1) {
@@ -247,30 +226,27 @@ $(() => {
     } else {
       modalArr.push(cardId);
       $(`#${cardId}_modalSwitch`).prop("checked", true);
-      console.log(modalArr);
-
     }
 
-    // If 6 cards chosen ->
+    // If 6 cards chosen pop modal on the screen ->
     if (modalArr.length === 6) {
       showModal();
     }
   });
-  // ---------------------------------------------------------------------------------------------------------------------------------
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
   // Show modal function -- > 
 
   function showModal() {
     // Selected cards array ->
-
     let selectedCardsData = [];
+
     // Compare chosen cards id and push them to the modal->
     for (const id of modalArr) {
       const cardData = cards.find(card => card.id === id);
       if (cardData && selectedCardsData.length < 6) {
 
         selectedCardsData.push(cardData);
-        console.log(`Name: ${cardData.name}`);
       }
 
     }
@@ -298,20 +274,14 @@ $(() => {
     </div>
           
           `
-      console.log(data.name);
-    }
 
-
-
+    } //----> Loop End !
 
 
     // Insert inside html ->
     $(".modal-body").html(modalHtml);
     // Pop modal ->
     modal.show();
-
-    // Closing modal button - > 
-
 
 
     // Modal toggle button  -->
@@ -338,23 +308,22 @@ $(() => {
         modalArr.push(modalCardId);
         $(".form-check-input").find(`#${modalCardId}`).prop("checked", true);
       }
-
       // Hide the modal
       modal.hide();
 
-      // End of click function ->
 
-    });
 
-    // End of modal function
-  }
+    });  // ----> End of click function <-----
 
-// Close button function modal ->
+
+  }; // ------>  End of modal function <-----
+
+
+  // Close button function modal ->
   $(".close").on("click", () => {
     // Get the id of the last card
 
     const lastSelectedCardId = modalArr[modalArr.length - 1];
-    console.log(lastSelectedCardId + "12121211");
     if (lastSelectedCardId) {
       const cardCheckbox = $(`#${lastSelectedCardId}`);
       if (lastSelectedCardId) {
@@ -365,18 +334,16 @@ $(() => {
         // Uncheck the last card on the main screen
         cardCheckbox.prop("checked", false);
       } else {
-       return;
+        return;
       }
     }
-  })
-  
+  });
+
   // End Of MODAL SECTION ! 
-  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-  
+
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
   // ----------------------------------------------------- Search Bar Section ! ----------------------------------------------------
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-
 
   // Display - Filtered Container Function 
   function displayFilteredCards(filteredCards) {
@@ -447,25 +414,20 @@ $(() => {
     contactUs.innerHTML = "";
     selectedGraph.innerHTML = "";
 
-    // Display Filtered Cards function end -->
-  }
+  }     // -----> Display Filtered Cards function end <-----
 
-  // Get input searchbar
-
+  // Get input searchbar -?
   inputSearchBar.addEventListener("input", function () {
     const searchTerm = inputSearchBar.value.toLowerCase();
-
+    // If the input is empty -->
     if (searchTerm === "") {
       getAndDisplayCards();
-
+      // Check if the value of the input is match to the name or symbol and display it -- >
     } else {
       const filteredCards = cards.filter(card => card.name.toLowerCase().includes(searchTerm) || card.symbol.toLowerCase().includes(searchTerm));
       displayFilteredCards(filteredCards);
-      console.log(filteredCards);
     }
   });
-  // .........................................  
-
 
 
   // ============================================================================================================
@@ -481,7 +443,7 @@ $(() => {
 
     let html = `
 
-    <section id="contact" class="py-5">
+    <section id="contact">
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto">
@@ -543,7 +505,7 @@ $(() => {
             Hope you having a great time 📍
             </p>
             <br>
-            <h3>My Knowledge : </h3>
+            <h3 class="knowledge">My Knowledge : </h3>
             <div class="knowledge-div>
             <img src="assets/images/html.jpeg" alt="html" class="img-fluid rounded-circle" width ="20%">
             <img src="assets/images/css.png" alt="css" class="img-fluid rounded-circle" width ="20%">
@@ -556,31 +518,31 @@ $(() => {
             <h2 class="mb-4">My Information</h2>
             <div class="row">
               <div class="col-md-6">
-                <h4>Birthday:</h4>
-                <p>April 18, 1998 🎈</p> 
+                <h4 class="info-title">Birthday:</h4>
+                <p class="about-info">April 18, 1998 🎈</p> 
                
-                <h4>Address:</h4>
-                <p>Bachar Zaav,Tel haim,Tel-Aviv 🏡 </p>
+                <h4 class="info-title">Address:</h4>
+                <p class="about-info">Bachar Zaav,Tel haim,Tel-Aviv 🏡 </p>
         
-                <h4>School Education:</h4>
-                <p>"Irony-Tet" High School.</p>
+                <h4 class="info-title">School Education:</h4>
+                <p  class="about-info">"Irony-Tet" High School.</p>
                 <img src="assets/images/ironyTet.png" alt="john-bryce" class="img-fluid rounded-circle" width ="20%">
                 <br></br>
 
-                <h4>Academic Education:</h4>
-                <p>John-Bryce Academic </p>
+                <h4 class="info-title">Academic Education:</h4>
+                <p  class="about-info">John-Bryce Academic </p>
                 <img src="assets/images/jblogo.png" alt="irony-tet" class="img-fluid rounded-circle" width ="20%">
                 <br></br>
 
               </div>
               <div class="col-md-6">
-                <h4>Military Service:</h4>
-                <p>I served in the military from 2016 to 2019. During my service, I gained valuable skills and experiences.</p>
+                <h4 class="info-title">Military Service:</h4>
+                <p  class="about-info">I served in the military from 2016 to 2019. During my service, I gained valuable skills and experiences.</p>
                 <img src="assets/images/gloani.png" alt="golani" class="img-fluid rounded-circle" width ="20%">
                 <br>
 
-                <h4>Previous Jobs:</h4>
-                <p>After i've done my military service,I opened a little delivery company on my own while i managed a store with few workers.
+                <h4 class="info-title">Previous Jobs:</h4>
+                <p  class="about-info">After i've done my military service,I opened a little delivery company on my own while i managed a store with few workers.
                 <br>
                 Few years later i left the country to work in California as a sales man for few months,Came back to israel and started to study fullstack web development in John bryce Academic.
                   </p>
@@ -592,6 +554,19 @@ $(() => {
           </div>
           <div class="col-lg-6">
             <img src="assets/images/me.jpg" alt="Uziel" class="img-fluid rounded-circle">
+            <h1 class ="services-title">Our services : </h1>
+              <ul class ="our-services">
+              <h3 class="info-title">Trading : </h3>
+
+              <li  class="about-info">Trading Facilitating the buying, selling, and exchanging of various cryptocurrencies on online platforms.</li>
+              <h3 class="info-title">Wallets : </h3>
+              <li  class="about-info"> Providing secure digital wallets to store, send, and receive cryptocurrencies.</li>
+              <h3 class="info-title">Educational Resources: </h3>
+              <li  class="about-info">Providing tutorials, guides, and information to help users learn about cryptocurrencies, blockchain, and how to use them.</li>
+              <h3 class="info-title">News and Analysis: </h3>
+              <li  class="about-info">Delivering up-to-date news, trends, and analysis about the cryptocurrency market and blockchain technology.</li>
+              </ul>
+
           </div>
         </div>
       </div>
