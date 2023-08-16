@@ -81,6 +81,7 @@ $(() => {
     try {
       cards = await getApi("api.json");
       displayCards(cards)
+      buttonMoreInfo()
     } catch (err) {
       console.log(`Fetch cards failed ${err}`);
     }
@@ -89,7 +90,6 @@ $(() => {
   // Display - Container -->
 
   function displayCards(cards) {
-
     let html = ""
     for (let i = 0; i < cards.length; i++) {
       html += `
@@ -146,9 +146,11 @@ $(() => {
     contactUs.innerHTML = "";
     selectedGraph.innerHTML = "";
 
+  } //---> End of Display cards Function 
     // ---------------------------------------------------------------------------------------------------------------------------------
 
     // More Info Button -->
+    function buttonMoreInfo(){
     $(".moreInfoBtn").on("click", async function () {
       const spinner = $(this).closest(".dataContainer").find(".spinner-border");
     
@@ -230,10 +232,11 @@ $(() => {
         // Hide Spinner after API call
         spinner.hide();
       }
-    });
-    
+    }); // - End of click button function 
 
+  } // End of button function
 
+// -----------------------------------------------------------------------------------------------
     // Clear data after two minutes - > 
     setInterval(() => {
       const currentTime = new Date().getTime();
@@ -246,8 +249,9 @@ $(() => {
       sessionStorage.setItem("savedData", strData);
     }, 120000); // Run every 2 minute 
 
+// -----------------------------------------------------------------------------------------------
 
-  } //---> End of Display cards Function 
+  
 
  
 
@@ -473,6 +477,7 @@ $(() => {
     } else {
       const filteredCards = cards.filter(card => card.name.toLowerCase().includes(searchTerm) || card.symbol.toLowerCase().includes(searchTerm));
       displayFilteredCards(filteredCards);
+      buttonMoreInfo()
     }
   });
 
