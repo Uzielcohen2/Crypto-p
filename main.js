@@ -78,10 +78,10 @@ $(() => {
   // Get and display cards function -->
 
   async function getAndDisplayCards() {
-    try{
-    cards = await getApi("api.json");
-    displayCards(cards)
-    }catch(err){
+    try {
+      cards = await getApi("api.json");
+      displayCards(cards)
+    } catch (err) {
       console.log(`Fetch cards failed ${err}`);
     }
   }
@@ -149,53 +149,194 @@ $(() => {
     // ---------------------------------------------------------------------------------------------------------------------------------
 
     // More Info Button -->
-
-
-
-    $(".moreInfoBtn").one("click", async function () {
-      try{
-      // Spinner ->
+    $(".moreInfoBtn").on("click", async function () {
       const spinner = $(this).closest(".dataContainer").find(".spinner-border");
-      spinner.show();
-
-      // Get data ->
-      const json = await getSecondApi(this.id);
-      // Add time prop - > 
-      json.time = new Date();
-
-
-      // Hide Spinner ->
-      spinner.hide();
-
-      const dataExist = moreInfoArr.find(item => item.id === json.id);
-      // If data isn`t exist - push it ->
-      if (!dataExist) {
-        moreInfoArr.push(json);
-        // Catch which button have been pressed ->
+    
+      try {
+        // Check if the data already exists in session storage
+        const savedData = sessionStorage.getItem("savedData");
+    
+        if (savedData) {
+          moreInfoArr = JSON.parse(savedData);
+    
+          // Find the data for the clicked button
+          const dataExist = moreInfoArr.find(item => item.data.id === this.id);
+          if (dataExist) {
+            // Calculate the time elapsed since data was fetched
+            const currentTime = new Date().getTime();
+            const timeElapsed = currentTime - dataExist.time;
+    
+            // If less than 2 minutes (120000 milliseconds), use session storage data
+            if (timeElapsed < 120000) {
+              const container = $(this).closest(".dataContainer");
+              const cardBodyInfo = container.find(".card-body-info");
+    
+              cardBodyInfo.html(`
+                <ul>
+                  <li>Israeli : ${dataExist.data.market_data.current_price.ils} ₪</li>
+                  <li>Euro : ${dataExist.data.market_data.current_price.eur} €</li>
+                  <li>Dollar : ${dataExist.data.market_data.current_price.usd} $</li>
+                </ul>
+              `);
+    
+              return; // Exit the function early since data is loaded from session storage
+            }
+          }
+        }
+    
+        // Show Spinner
+        spinner.show();
+    
+        // Get data
+        const json = await getSecondApi(this.id);
+    
+        // Add time prop
+        const myTime = new Date().getTime();
+    
+        // Make an object with time prop
+        const entry = {
+          data: json,
+          time: myTime
+        };
+    
+        // Find the index for the timestamp
+        const indexExist = moreInfoArr.findIndex(item => item.data.id === json.id);
+        if (indexExist !== -1) {
+          moreInfoArr[indexExist] = entry;
+        } else {
+          moreInfoArr.push(entry);
+        }
+    
+        // Display the fetched data
         const container = $(this).closest(".dataContainer");
         const cardBodyInfo = container.find(".card-body-info");
-        // Push to Html ->
+    
         cardBodyInfo.html(`
-      
-       <ul>
-          <li>Israeli : ${json.market_data.current_price.ils}  ₪ </li>
-          <li>Euro : ${json.market_data.current_price.eur}  € </li>
-          <li>Dollar : ${json.market_data.current_price.usd}  $</li>
-       </ul>
-        `)
-        //  If does exist - >
-      } else {
-        return;
+          <ul>
+            <li>Israeli : ${json.market_data.current_price.ils} ₪</li>
+            <li>Euro : ${json.market_data.current_price.eur} €</li>
+            <li>Dollar : ${json.market_data.current_price.usd} $</li>
+          </ul>
+        `);
+    
+        // Save to local storage
+        const strData = JSON.stringify(moreInfoArr);
+        sessionStorage.setItem("savedData", strData);
+      } catch (err) {
+        console.log("Error fetching more info data:", err);
+      } finally {
+        // Hide Spinner after API call, regardless of success or error
+        spinner.hide();
       }
-      // Catch the Error -  >
-    }catch(err){
-      console.log("Error fetching more info data:", err);
-    }
+    });
+    
 
-      // Save to local storage
+
+
+
+
+
+
+
+    // $(".moreInfoBtn").one("click", async function () {
+    //   const spinner = $(this).closest(".dataContainer").find(".spinner-border");
+
+    //   try {
+    //     // Check if the data already exists in session storage
+    //     const savedData = sessionStorage.getItem("savedData");
+
+    //     if (savedData) {
+    //       moreInfoArr = JSON.parse(savedData);
+
+    //       // Find the data for the clicked button
+    //       const dataExist = moreInfoArr.find(item => item.data.id === this.id);
+    //       if (dataExist) {
+    //         // Calculate the time elapsed since data was fetched
+    //         const currentTime = new Date().getTime();
+    //         const timer = currentTime - dataExist.time;
+
+    //         // If less than 2 minutes (120000 milliseconds), use session storage data
+    //         if (timer < 120000) {
+    //           const container = $(this).closest(".dataContainer");
+    //           const cardBodyInfo = container.find(".card-body-info");
+
+    //           cardBodyInfo.html(`
+    //             <ul>
+    //               <li>Israeli : ${dataExist.data.market_data.current_price.ils} ₪</li>
+    //               <li>Euro : ${dataExist.data.market_data.current_price.eur} €</li>
+    //               <li>Dollar : ${dataExist.data.market_data.current_price.usd} $</li>
+    //             </ul>
+    //           `);
+
+    //           return; // Exit the function early since data is loaded from session storage
+    //         }
+    //       }
+    //     }
+
+    //     // Show Spinner
+    //     spinner.show();
+
+    //     // Get data
+    //     const json = await getSecondApi(this.id);
+
+    //     // Add time prop
+    //     const myTime = new Date().getTime();
+
+    //     // Make an object with time prop
+    //     const entry = {
+    //       data: json,
+    //       time: myTime
+    //     };
+
+    //     // Find the index for the timestamp
+    //     const indexExist = moreInfoArr.findIndex(item => item.data.id === json.id);
+    //     if (indexExist !== -1) {
+    //       moreInfoArr[indexExist] = entry;
+    //     } else {
+    //       moreInfoArr.push(entry);
+    //     }
+
+    //     // Display the fetched data
+    //     const container = $(this).closest(".dataContainer");
+    //     const cardBodyInfo = container.find(".card-body-info");
+
+    //     cardBodyInfo.html(`
+    //       <ul>
+    //         <li>Israeli : ${json.market_data.current_price.ils} ₪</li>
+    //         <li>Euro : ${json.market_data.current_price.eur} €</li>
+    //         <li>Dollar : ${json.market_data.current_price.usd} $</li>
+    //       </ul>
+    //     `);
+
+    //     // Save to local storage
+    //     const strData = JSON.stringify(moreInfoArr);
+    //     sessionStorage.setItem("savedData", strData);
+    //   } catch (err) {
+    //     console.log("Error fetching more info data:", err);
+    //   } finally {
+       
+    //     spinner.hide();
+    //   }
+    // }); // -->End of button More Info click function
+
+
+
+
+
+
+
+
+    // Clear data after two minutes - > 
+    setInterval(() => {
+      const currentTime = new Date().getTime();
+      moreInfoArr = moreInfoArr.filter(entry => {
+        return currentTime - entry.myTime <= 120000; // 120000 milliseconds = 2 minutes
+      });
+
+      // Save updated array to sessionStorage
       const strData = JSON.stringify(moreInfoArr);
       sessionStorage.setItem("savedData", strData);
-    });
+    }, 120000); // Run every 2 minute 
 
 
 
