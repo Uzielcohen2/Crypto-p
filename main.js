@@ -1,9 +1,9 @@
 "use strict";
 $(() => {
 
-  //Cards array - > 
+  //Cards Arr - > 
   let cards = [];
-  // More Info ARRAY - > 
+  // More Info Arr - > 
   let moreInfoArr = [];
   // Modal Arr - >
   let modalArr = [];
@@ -31,26 +31,26 @@ $(() => {
 
   // Live Reports ->
   liveReportsLink.addEventListener("click", () => {
-    getAndDisplayCards();
+    getAndDisplayCards()
   });
   // **************
   // Contact Us ->
   contactUsLink.addEventListener("click", () => {
     displayContactUs()
-  })
+  });
   // **************
   // About us ->
   aboutUsLink.addEventListener("click", () => {
     displayAboutUs()
-  })
+  });
   // **************
   // Live selected graph -->
   selectedGraphLink.addEventListener("click", () => {
-    displayLiveSelected();
-  })
+    displayLiveSelected()    
+  });
   // **************
 
-  // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+  
 
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
   // ---------------------------------------------------API PULL SECTION ----------------------------------------------------
@@ -162,11 +162,11 @@ $(() => {
           // Find the data for the clicked button
           const dataExist = moreInfoArr.find(item => item.data.id === this.id);
           if (dataExist) {
-            // Calculate the time elapsed since data was fetched
+            // Check when data fetched ->
             const currentTime = new Date().getTime();
             const timeElapsed = currentTime - dataExist.time;
     
-            // If less than 2 minutes (120000 milliseconds), use session storage data
+            // If less than 2 minutes , use session storage data
             if (timeElapsed < 120000) {
               const container = $(this).closest(".dataContainer");
               const cardBodyInfo = container.find(".card-body-info");
@@ -179,7 +179,7 @@ $(() => {
                 </ul>
               `);
     
-              return; // Exit the function early since data is loaded from session storage
+              return; // Exit the function (Data loaded !)
             }
           }
         }
@@ -199,11 +199,13 @@ $(() => {
           time: myTime
         };
     
-        // Find the index for the timestamp
+        // Find the index 
         const indexExist = moreInfoArr.findIndex(item => item.data.id === json.id);
         if (indexExist !== -1) {
+          // Replace 
           moreInfoArr[indexExist] = entry;
         } else {
+          // Push
           moreInfoArr.push(entry);
         }
     
@@ -225,105 +227,11 @@ $(() => {
       } catch (err) {
         console.log("Error fetching more info data:", err);
       } finally {
-        // Hide Spinner after API call, regardless of success or error
+        // Hide Spinner after API call
         spinner.hide();
       }
     });
     
-
-
-
-
-
-
-
-
-    // $(".moreInfoBtn").one("click", async function () {
-    //   const spinner = $(this).closest(".dataContainer").find(".spinner-border");
-
-    //   try {
-    //     // Check if the data already exists in session storage
-    //     const savedData = sessionStorage.getItem("savedData");
-
-    //     if (savedData) {
-    //       moreInfoArr = JSON.parse(savedData);
-
-    //       // Find the data for the clicked button
-    //       const dataExist = moreInfoArr.find(item => item.data.id === this.id);
-    //       if (dataExist) {
-    //         // Calculate the time elapsed since data was fetched
-    //         const currentTime = new Date().getTime();
-    //         const timer = currentTime - dataExist.time;
-
-    //         // If less than 2 minutes (120000 milliseconds), use session storage data
-    //         if (timer < 120000) {
-    //           const container = $(this).closest(".dataContainer");
-    //           const cardBodyInfo = container.find(".card-body-info");
-
-    //           cardBodyInfo.html(`
-    //             <ul>
-    //               <li>Israeli : ${dataExist.data.market_data.current_price.ils} ₪</li>
-    //               <li>Euro : ${dataExist.data.market_data.current_price.eur} €</li>
-    //               <li>Dollar : ${dataExist.data.market_data.current_price.usd} $</li>
-    //             </ul>
-    //           `);
-
-    //           return; // Exit the function early since data is loaded from session storage
-    //         }
-    //       }
-    //     }
-
-    //     // Show Spinner
-    //     spinner.show();
-
-    //     // Get data
-    //     const json = await getSecondApi(this.id);
-
-    //     // Add time prop
-    //     const myTime = new Date().getTime();
-
-    //     // Make an object with time prop
-    //     const entry = {
-    //       data: json,
-    //       time: myTime
-    //     };
-
-    //     // Find the index for the timestamp
-    //     const indexExist = moreInfoArr.findIndex(item => item.data.id === json.id);
-    //     if (indexExist !== -1) {
-    //       moreInfoArr[indexExist] = entry;
-    //     } else {
-    //       moreInfoArr.push(entry);
-    //     }
-
-    //     // Display the fetched data
-    //     const container = $(this).closest(".dataContainer");
-    //     const cardBodyInfo = container.find(".card-body-info");
-
-    //     cardBodyInfo.html(`
-    //       <ul>
-    //         <li>Israeli : ${json.market_data.current_price.ils} ₪</li>
-    //         <li>Euro : ${json.market_data.current_price.eur} €</li>
-    //         <li>Dollar : ${json.market_data.current_price.usd} $</li>
-    //       </ul>
-    //     `);
-
-    //     // Save to local storage
-    //     const strData = JSON.stringify(moreInfoArr);
-    //     sessionStorage.setItem("savedData", strData);
-    //   } catch (err) {
-    //     console.log("Error fetching more info data:", err);
-    //   } finally {
-       
-    //     spinner.hide();
-    //   }
-    // }); // -->End of button More Info click function
-
-
-
-
-
-
 
 
     // Clear data after two minutes - > 
@@ -333,17 +241,15 @@ $(() => {
         return currentTime - entry.myTime <= 120000; // 120000 milliseconds = 2 minutes
       });
 
-      // Save updated array to sessionStorage
+      // Save updated array to sessionStorage - >
       const strData = JSON.stringify(moreInfoArr);
       sessionStorage.setItem("savedData", strData);
     }, 120000); // Run every 2 minute 
 
 
-
-
   } //---> End of Display cards Function 
 
-  // ---------------------------------------------------------------------------------------------------------------------------------
+ 
 
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
   // ----------------------------------------------------- Modal  Section ! ----------------------------------------------------
