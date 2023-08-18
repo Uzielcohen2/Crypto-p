@@ -50,6 +50,12 @@ body ,html {
     #navLinks{
         overflow-y: hidden;
     }
+    #inputSearchBar{
+        height: 20%;
+    }
+    #search-item > h5 {
+        font-size: small;
+    }
 }
 
 
