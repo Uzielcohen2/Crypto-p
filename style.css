@@ -1,15 +1,9 @@
 
-.title-icon {
-    color: white;
-}
-
 /* Body */
 body ,html {
     font-size: larger;
     height: 100%;
 }
-
-
 
 
 /* ------Custom scrollbar */
@@ -27,12 +21,6 @@ body ,html {
 }
 
 /* ==================================================================== */
-/* Parallax */
-
-/* ->Ask yos if i have to.its sucks xD */
-
-/* =================================================================== */
-
 
 /* Key Frames  */
 @keyframes rotation {
@@ -66,17 +54,12 @@ body ,html {
 
 
 
-
-
-
 /* =================================================================== */
 /* Whole page section -> */
 #pagesSection {
     padding-top: 65px;
-    background-image: url("assets/images/2304.w056.n005.188B.p15.188.jpg");
-
+    background-image: url("assets/images/fern-m-lomibao-mC0413G04Ww-unsplash.jpg");
     min-height: 100%;
-  
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -84,10 +67,7 @@ body ,html {
   
 }
 
-
-
 /*------------------------ Navbar - Section ------------------------- */
-/* Navbar himself */
 
 /* Whole Links */
 .nav-item {
@@ -117,12 +97,11 @@ body ,html {
     position: fixed;
 }
 
-
 /* Search bar -  */
 
 /* h5 Question */
 .specific-coin {
-    color: lightskyblue;
+    color: rgb(240, 211, 235);
     font-family: system-ui;
 }
 
@@ -179,9 +158,9 @@ body ,html {
 .card {
     width: 300px;
     display: inline-block;
-    background-color: rgb(199, 225, 241);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(to right, #9796f0, #fbc7d4);
     margin: 8px;
+    color: white;
 }
 
 /* Logo on card */
@@ -207,7 +186,7 @@ div.form-check.form-switch {
 /* Card Title and logo */
 .card-title {
     font-family: cursive;
-    font-size: large;
+    font-size: larger;
     margin-left: 40px;
 
 }
@@ -222,13 +201,14 @@ div.form-check.form-switch {
 
 /* Card Button more info -> */
 .moreInfoBtn {
-    background-color: #6195e9;
+    background-image: linear-gradient(to right, #d3cce3, #e9e4f0); 
+    inline-size: max-content;
     padding: .75rem 1.25rem;
     border-radius: 10rem;
     color: black;
     font-size: 1rem;
     font-family: monospace, Helvetica, sans-serif;
-    inline-size: -webkit-fill-available;
+    inline-size: max-content;
 }
 
 
@@ -306,8 +286,11 @@ li {
 }
 
 .lead , .knowledge-div , .about-info{
-    background: linear-gradient(45deg, black, transparent);
-
+    background: linear-gradient(to bottom right, rgba(52, 152, 219, 0.8), rgba(46, 204, 113, 0.8));
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-style: outset;
 }
 
 /*  */

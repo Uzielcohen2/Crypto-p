@@ -46,11 +46,11 @@ $(() => {
   // **************
   // Live selected graph -->
   selectedGraphLink.addEventListener("click", () => {
-    displayLiveSelected()    
+    displayLiveSelected()
   });
   // **************
 
-  
+
 
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
   // ---------------------------------------------------API PULL SECTION ----------------------------------------------------
@@ -147,32 +147,32 @@ $(() => {
     selectedGraph.innerHTML = "";
 
   } //---> End of Display cards Function 
-    // ---------------------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------------------
 
-    // More Info Button -->
-    function buttonMoreInfo(){
+  // More Info Button -->
+  function buttonMoreInfo() {
     $(".moreInfoBtn").on("click", async function () {
       const spinner = $(this).closest(".dataContainer").find(".spinner-border");
-    
+
       try {
         // Check if the data already exists in session storage
         const savedData = sessionStorage.getItem("savedData");
-    
+
         if (savedData) {
           moreInfoArr = JSON.parse(savedData);
-    
+
           // Find the data for the clicked button
           const dataExist = moreInfoArr.find(item => item.data.id === this.id);
           if (dataExist) {
             // Check when data fetched ->
             const currentTime = new Date().getTime();
             const timeElapsed = currentTime - dataExist.time;
-    
+
             // If less than 2 minutes , use session storage data
             if (timeElapsed < 120000) {
               const container = $(this).closest(".dataContainer");
               const cardBodyInfo = container.find(".card-body-info");
-    
+
               cardBodyInfo.html(`
                 <ul>
                   <li>Israeli : ${dataExist.data.market_data.current_price.ils} ₪</li>
@@ -180,27 +180,27 @@ $(() => {
                   <li>Dollar : ${dataExist.data.market_data.current_price.usd} $</li>
                 </ul>
               `);
-    
+
               return; // Exit the function (Data loaded !)
             }
           }
         }
-    
+
         // Show Spinner
         spinner.show();
-    
+
         // Get data
         const json = await getSecondApi(this.id);
-    
+
         // Add time prop
         const myTime = new Date().getTime();
-    
+
         // Make an object with time prop
         const entry = {
           data: json,
           time: myTime
         };
-    
+
         // Find the index 
         const indexExist = moreInfoArr.findIndex(item => item.data.id === json.id);
         if (indexExist !== -1) {
@@ -210,11 +210,11 @@ $(() => {
           // Push
           moreInfoArr.push(entry);
         }
-    
+
         // Display the fetched data
         const container = $(this).closest(".dataContainer");
         const cardBodyInfo = container.find(".card-body-info");
-    
+
         cardBodyInfo.html(`
           <ul>
             <li>Israeli : ${json.market_data.current_price.ils} ₪</li>
@@ -222,7 +222,7 @@ $(() => {
             <li>Dollar : ${json.market_data.current_price.usd} $</li>
           </ul>
         `);
-    
+
         // Save to local storage
         const strData = JSON.stringify(moreInfoArr);
         sessionStorage.setItem("savedData", strData);
@@ -236,24 +236,24 @@ $(() => {
 
   } // End of button function
 
-// -----------------------------------------------------------------------------------------------
-    // Clear data after two minutes - > 
-    setInterval(() => {
-      const currentTime = new Date().getTime();
-      moreInfoArr = moreInfoArr.filter(entry => {
-        return currentTime - entry.myTime <= 120000; // 120000 milliseconds = 2 minutes
-      });
+  // -----------------------------------------------------------------------------------------------
+  // Clear data after two minutes - > 
+  setInterval(() => {
+    const currentTime = new Date().getTime();
+    moreInfoArr = moreInfoArr.filter(entry => {
+      return currentTime - entry.myTime <= 120000; // 120000 milliseconds = 2 minutes
+    });
 
-      // Save updated array to sessionStorage - >
-      const strData = JSON.stringify(moreInfoArr);
-      sessionStorage.setItem("savedData", strData);
-    }, 120000); // Run every 2 minute 
+    // Save updated array to sessionStorage - >
+    const strData = JSON.stringify(moreInfoArr);
+    sessionStorage.setItem("savedData", strData);
+  }, 120000); // Run every 2 minute 
 
-// -----------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------
 
-  
 
- 
+
+
 
   // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
   // ----------------------------------------------------- Modal  Section ! ----------------------------------------------------
@@ -281,6 +281,7 @@ $(() => {
 
     // If 6 cards chosen pop modal on the screen ->
     if (modalArr.length === 6) {
+      console.log(`modal is opening`);
       showModal();
     }
   });
@@ -477,7 +478,7 @@ $(() => {
     } else {
       const filteredCards = cards.filter(card => card.name.toLowerCase().includes(searchTerm) || card.symbol.toLowerCase().includes(searchTerm));
       displayFilteredCards(filteredCards);
-      buttonMoreInfo()
+      buttonMoreInfo();
     }
   });
 
