@@ -79,7 +79,7 @@ $(() => {
 
   async function getAndDisplayCards() {
     try {
-      cards = await getApi("api.json");
+      cards = await getApi("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1");
       displayCards(cards)
       buttonMoreInfo()
     } catch (err) {
